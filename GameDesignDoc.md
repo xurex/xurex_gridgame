@@ -1,7 +1,11 @@
 # Game Design Document
 
 ##Basic Gameplay Description
+![alt text](https://github.com/usc-csci102-spring2013/game_rexxu/game_show.png "Game Screen")
 > A figure moves within a 10x10 grid to avoid objects that are flying across the screen. This top down game is "won" by achieving the highest score possible which entails staying alive as long as possible and picking up powerups. There are three levels of increasing difficulty in which different "enemies" are introduced.
+
+###Scoring
+>  Score increases automatically as the game progresses and the player stays alive. The higher the level, the faster the game increments. A score boost can be obtained by aquiring a life up with full health. Scores will eventually be stored in a hi-score list and placement on this list will determine a letter grade.
 
 ###Objects
 > There are numerous objects that appear sporadically throughout gameplay. Some are enemies that do damage upon collision while others are powerups that improve either performance or score.
@@ -28,4 +32,6 @@
 >  This "ram" will run across the top of the board and rain down "heaps" of excrement that take away two lives upon impact.
 
 ####Debug
-![alt text]
+![alt text](https://github.com/usc-csci102-spring2013/game_rexxu/ladebug.png "laDEBUG")
+>  This crucial tool of all good programmers removes all the objects on the screen.
+
