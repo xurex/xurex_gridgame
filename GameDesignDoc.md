@@ -8,7 +8,11 @@
 
 ####Protagonist
 ![alt text](https://github.com/usc-csci102-spring2013/game_rexxu/redekopp.jpg "Mad Computer Scientist")
->  Our favorite computer programmer is controlled via the keyboard arrow keys and attempts to avoid the malicious computer science objects to score a good grade. He starts with three lives and loses them upon collision with these enemies. However, he can gain back lives with a "debug". If he needs a break, spacebar pauses the game.
+>  Our favorite computer programmer is controlled via the keyboard arrow keys and attempts to avoid the malicious computer science objects to score a good grade. He starts with three lives and loses them upon collision with these enemies. However, he can gain back lives. If he needs a break, spacebar pauses the game.
+
+####Life Up
+![alt text](https://github.com/usc-csci102-spring2013/game_rexxu/redekopp.jpg "Life Up")
+>  This floating head will give a life back if our protagonist is not at full health. However, if he is then the life up will provide a significant point boost. These objects occur once per level.
 
 ####Pointers
 ![alt text](http://www.psdgraphics.com/file/mouse-cursor-icon.jpg "Pointer")
@@ -23,4 +27,5 @@
 ![alt text](http://www.mattbors.com/images/turd.gif "Heap")
 >  This "ram" will run across the top of the board and rain down "heaps" of excrement that take away two lives upon impact.
 
-####
+####Debug
+![alt text]
