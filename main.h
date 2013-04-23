@@ -11,9 +11,12 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QtGui/QApplication>
+#include "grid.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500
+#define DIM 8
+#define SIZE 64
 
 class Main : public QWidget {
     Q_OBJECT
@@ -37,10 +40,16 @@ private:
     QPushButton *start;
     /**PushButton that exits application*/
     QPushButton *quit;
+    /**displays messages to user*/
+    QLabel *message;
     /**Timer used to run animations and game*/
     QTimer *timer;
     /**checks to see if the game is started*/
     bool inPlay;
+    /**Array of QGraphicsRectItem * to form grid*/
+    Grid** board;
+    /**Counter used throughout main*/
+    int count;
     
 public slots:
 	

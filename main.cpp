@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-MainWindow::MainWindow(QApplication *mainapp)  {
+Main::Main(QApplication *mainapp)  {
     //Sets data member app to QApp
     app = mainapp;
     //Sets game condition to not in play
@@ -36,7 +36,7 @@ MainWindow::MainWindow(QApplication *mainapp)  {
     
 }
 
-void MainWindow::show() {
+void Main::show() {
     QWidget *window = new QWidget;
     
     QHBoxLayout *startquit = new QHBoxLayout;
@@ -44,17 +44,38 @@ void MainWindow::show() {
     startquit->addWidget(quit);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addLayout(startquit);
-    layout->addWidget(view);
     layout->addWidget(message);
-
+    layout->addWidget(view);
+    layout->addLayout(startquit);
+    
     window->setLayout(layout);
     window->show();
 }
 
 void Main::startGame()
 {
-
+	if(inPlay)
+		return;
+	else{
+	  inPlay = true;
+	  message->setText("Game started...good luck");
+	  board = new Grid*[SIZE];
+	  double wh = 50;
+	  double x, y; x=y=100;
+	  count = 0;
+	  for(int i=0; i<DIM; i++)
+	  {
+	  	for(int j=0; j<DIM; j++)
+	  	{
+	  	  Grid* temp = new Grid(x,y,wh,wh);
+	  	  x+=wh;
+	  	  board[count]=temp;
+	  	  scene->addItem(board[count]); count++;
+	  	}
+	  	x=100;
+	  	y+=wh;
+	  }
+        }
 }
 
 void Main::exitGame()
@@ -71,4 +92,8 @@ Main::~Main()
 	delete quit;
 	delete message;
 	delete timer;
+	for(int i=0; i<SIZE; i++)
+	{
+	   delete board[i];
+	}
 }
