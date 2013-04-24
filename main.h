@@ -2,6 +2,7 @@
 #define MAIN_H
 
 #include <QMainWindow>
+#include <QWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -12,6 +13,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QtGui/QApplication>
+#include <QKeyEvent>
 #include "grid.h"
 #include "redekopp.h"
 
@@ -23,14 +25,18 @@
 class Main : public QWidget {
     Q_OBJECT
     
-public:
+  public:
 
     explicit Main(QApplication *);
     ~Main();
 
     void show();
     
-private:
+  protected:
+
+    void keyPressEvent( QKeyEvent *e );
+    
+  private:
 
     /**Pointer to QApp needed to quit game*/
     QApplication *app;
@@ -59,7 +65,7 @@ private:
     /**Object of protagonist*/
     Redekopp *protagonist;
     
-public slots:
+  public slots:
 	
 	void startGame();
 	void exitGame();

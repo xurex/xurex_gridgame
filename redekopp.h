@@ -11,6 +11,10 @@ class Redekopp: public QGraphicsPixmapItem {
     Redekopp (QPixmap *pm, int nx, int ny);
     ~Redekopp() {delete this;}
     //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
+    void move_left();
+    void move_right();
+    void move_up();
+    void move_down();
   private:  //Every thing has a origin and a velocity – maybe 0
     int x;
     int y;

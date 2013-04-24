@@ -31,17 +31,19 @@ Main::Main(QApplication *mainapp)  {
     timer->setInterval(100);
     
     //Background
-    background = new QPixmap("matrix.png");
+    background = new QPixmap("./Images/matrix.png");
     scene->setBackgroundBrush(background->scaled
     (WINDOW_MAX_X,WINDOW_MAX_Y,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
     
     //Protagonist
-    redekopp = new QPixmap("redekopp.png");
+    redekopp = new QPixmap("./Images/redekopp.png");
     protagonist = new Redekopp(redekopp, 100, 100);
     
     //Connects
     connect(start, SIGNAL(clicked()), this, SLOT(startGame()));
     connect(quit , SIGNAL(clicked()), this, SLOT(exitGame()));
+    
+    //sets focus for mainwindow
     setFocus();
 }
 
@@ -91,6 +93,22 @@ void Main::startGame()
 void Main::exitGame()
 {
 	app->exit();
+}
+
+void Main::keyPressEvent( QKeyEvent *e ) {
+	//We need to find out which key was pressed
+	//Let’s say we want to use the 4 arrow keys
+	switch ( e->key() ) 
+	{
+		case  Qt::Key_Left :
+			protagonist->move_left(); cout<<"left"<<endl;	break;
+		case Qt::Key_Right :
+			protagonist->move_right(); cout<<"right"<<endl;	break;
+		case Qt::Key_Up :
+			protagonist->move_up();	 cout<<"up"<<endl;	break;
+		case Qt::Key_Down:
+			protagonist->move_down(); cout<<"down"<<endl;	break;
+	}
 }
 
 /**Destructor*/
