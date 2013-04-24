@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QGraphicsPixmapItem>
 #include <QTimer>
 #include <QTimeLine>
 #include <QPushButton>
@@ -12,6 +13,7 @@
 #include <QLabel>
 #include <QtGui/QApplication>
 #include "grid.h"
+#include "redekopp.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500
@@ -44,12 +46,18 @@ private:
     QLabel *message;
     /**Timer used to run animations and game*/
     QTimer *timer;
+    /**Background of scene*/
+    QPixmap *background;
     /**checks to see if the game is started*/
     bool inPlay;
     /**Array of QGraphicsRectItem * to form grid*/
     Grid** board;
     /**Counter used throughout main*/
     int count;
+    /**Image of protagonist*/
+    QPixmap *redekopp;
+    /**Object of protagonist*/
+    Redekopp *protagonist;
     
 public slots:
 	

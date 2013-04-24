@@ -30,10 +30,19 @@ Main::Main(QApplication *mainapp)  {
     timer = new QTimer(this);
     timer->setInterval(100);
     
+    //Background
+    background = new QPixmap("matrix.png");
+    scene->setBackgroundBrush(background->scaled
+    (WINDOW_MAX_X,WINDOW_MAX_Y,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    
+    //Protagonist
+    redekopp = new QPixmap("redekopp.png");
+    protagonist = new Redekopp(redekopp, 100, 100);
+    
     //Connects
     connect(start, SIGNAL(clicked()), this, SLOT(startGame()));
     connect(quit , SIGNAL(clicked()), this, SLOT(exitGame()));
-    
+    setFocus();
 }
 
 void Main::show() {
@@ -75,6 +84,7 @@ void Main::startGame()
 	  	x=100;
 	  	y+=wh;
 	  }
+	  scene->addItem(protagonist);
         }
 }
 

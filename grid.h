@@ -1,6 +1,7 @@
 #ifndef GRID_H
 #define GRID_H
 #include <QGraphicsRectItem>
+#include <QBrush>
 
 /**
   This class maintains the location and size of a QGraphicsRectItem.
