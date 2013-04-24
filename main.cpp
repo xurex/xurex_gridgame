@@ -31,7 +31,7 @@ Main::Main(QApplication *mainapp)  {
     timer->setInterval(100);
     
     //Background
-    background = new QPixmap("./Images/matrix.png");
+    background = new QPixmap("./Images/compsci.jpg");
     scene->setBackgroundBrush(background->scaled
     (WINDOW_MAX_X,WINDOW_MAX_Y,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
     
@@ -98,15 +98,15 @@ void Main::exitGame()
 void Main::keyPressEvent( QKeyEvent *e ) {
 	//We need to find out which key was pressed
 	//Let’s say we want to use the 4 arrow keys
-	switch ( e->key() ) 
+	switch (e->key()) 
 	{
-		case  Qt::Key_Left :
+		case Qt::Key_A://Qt::Key_Left :
 			protagonist->move_left(); cout<<"left"<<endl;	break;
-		case Qt::Key_Right :
+		case Qt::Key_D://Qt::Key_Right :
 			protagonist->move_right(); cout<<"right"<<endl;	break;
-		case Qt::Key_Up :
+		case Qt::Key_W://Qt::Key_Up :
 			protagonist->move_up();	 cout<<"up"<<endl;	break;
-		case Qt::Key_Down:
+		case Qt::Key_S://Qt::Key_Down:
 			protagonist->move_down(); cout<<"down"<<endl;	break;
 	}
 }

@@ -14,6 +14,7 @@
 #include <QLabel>
 #include <QtGui/QApplication>
 #include <QKeyEvent>
+#include <cctype>
 #include "grid.h"
 #include "redekopp.h"
 
