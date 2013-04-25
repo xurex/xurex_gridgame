@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<QGraphicsPixmapItem>
+#include<QPointF>
 using namespace std;
 
 class Redekopp: public QGraphicsPixmapItem {
@@ -15,11 +16,11 @@ class Redekopp: public QGraphicsPixmapItem {
     void move_right();
     void move_up();
     void move_down();
+    int getX();
+    int getY();
   private:  //Every thing has a origin and a velocity – maybe 0
     int x;
     int y;
-    int vX;
-    int vY;
     QPixmap *pixMap;  //Good idea. Explain later.
     
 };

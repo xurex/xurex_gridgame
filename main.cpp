@@ -8,13 +8,8 @@ Main::Main(QApplication *mainapp)  {
     //Sets game condition to not in play
     inPlay = false;
     
-    //We need a scene and a view to do graphics in QT
-    scene = new QGraphicsScene();
-    view = new QGraphicsView( scene );
-
-    //This sets the size of the window and gives it a title.
-    view->setFixedSize( WINDOW_MAX_X, WINDOW_MAX_Y );
-    view->setWindowTitle( "Comp Sci Craze" );
+    //Creates GraphicWindow
+    view = new GraphicWindow(this);
     
     //Push Buttons
     start = new QPushButton("&Start", this);
@@ -32,28 +27,26 @@ Main::Main(QApplication *mainapp)  {
     
     //Background
     background = new QPixmap("./Images/compsci.jpg");
-    scene->setBackgroundBrush(background->scaled
+    view->scene->setBackgroundBrush(background->scaled
     (WINDOW_MAX_X,WINDOW_MAX_Y,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-    
-    //Protagonist
-    redekopp = new QPixmap("./Images/redekopp.png");
-    protagonist = new Redekopp(redekopp, 100, 100);
     
     //Connects
     connect(start, SIGNAL(clicked()), this, SLOT(startGame()));
     connect(quit , SIGNAL(clicked()), this, SLOT(exitGame()));
     
-    //sets focus for mainwindow
+    //Protagonist
+    redekopp = new QPixmap("./Images/redekopp.png");
+    protagonist = new Redekopp(redekopp, 100, 100);
+    
+    //Sets focus for MainWindow
     setFocus();
-}
-
-void Main::show() {
+    
     QWidget *window = new QWidget;
     
     QHBoxLayout *startquit = new QHBoxLayout;
     startquit->addWidget(start);
     startquit->addWidget(quit);
-
+    
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(message);
     layout->addWidget(view);
@@ -61,7 +54,13 @@ void Main::show() {
     
     window->setLayout(layout);
     window->show();
+    
+    setCentralWidget(window);
 }
+/*
+void Main::show() {
+    
+}*/
 
 void Main::startGame()
 {
@@ -81,13 +80,14 @@ void Main::startGame()
 	  	  Grid* temp = new Grid(x,y,wh,wh);
 	  	  x+=wh;
 	  	  board[count]=temp;
-	  	  scene->addItem(board[count]); count++;
+	  	  view->scene->addItem(board[count]); count++;
 	  	}
 	  	x=100;
 	  	y+=wh;
 	  }
-	  scene->addItem(protagonist);
+	  view->scene->addItem(protagonist);
         }
+        setFocus();
 }
 
 void Main::exitGame()
@@ -98,23 +98,25 @@ void Main::exitGame()
 void Main::keyPressEvent( QKeyEvent *e ) {
 	//We need to find out which key was pressed
 	//Let’s say we want to use the 4 arrow keys
+	if(!inPlay)
+		return;
 	switch (e->key()) 
 	{
 		case Qt::Key_A://Qt::Key_Left :
-			protagonist->move_left(); cout<<"left"<<endl;	break;
+			protagonist->move_left();	break;
 		case Qt::Key_D://Qt::Key_Right :
-			protagonist->move_right(); cout<<"right"<<endl;	break;
+			protagonist->move_right();	break;
 		case Qt::Key_W://Qt::Key_Up :
-			protagonist->move_up();	 cout<<"up"<<endl;	break;
+			protagonist->move_up();		break;
 		case Qt::Key_S://Qt::Key_Down:
-			protagonist->move_down(); cout<<"down"<<endl;	break;
+			protagonist->move_down();	break;
 	}
 }
+
 
 /**Destructor*/
 Main::~Main()
 {
-	delete scene;
 	delete view;
 	delete start;
 	delete quit;

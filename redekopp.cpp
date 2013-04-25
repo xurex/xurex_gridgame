@@ -12,34 +12,47 @@ Redekopp::Redekopp( QPixmap* p, int nx, int ny )
 void Redekopp::move_left()
 {
 	if(x==100)
-		setPos(450, y);
+		return;
 	else
-		moveBy(-50, 0);
+	{
+		moveBy(-50, 0); x-=50;
+		//cout<<"left x: "<<x<<endl;
+	}
 }
 
 void Redekopp::move_right()
 {
 	if(x==450)
-		setPos(100, y);
+		return;
 	else
-		moveBy(50, 0);
+	{
+		moveBy(50, 0); x+=50;
+		//cout<<"right x: "<<x<<endl;
+	}
 }
 
 void Redekopp::move_up()
 {
 	if(y==100)
-		setPos(x, 450);
+		return;
 	else
-		moveBy(0, -50);
+	{
+		moveBy(0,-50); y-=50;
+		//cout<<"up y: "<<y<<endl;
+	}
 }
 
 void Redekopp::move_down()
 {
 	if(y==450)
-		setPos(x, 100);
+		return;
 	else
-		moveBy(0, 50);
+	{
+		moveBy(0, 50); y+=50;
+		//cout<<"down y: "<<y<<endl;
+	}
 }
 
-
+int Redekopp::getX() {return x;}
+int Redekopp::getY() {return y;}
 

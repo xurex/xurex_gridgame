@@ -2,9 +2,6 @@
 #define MAIN_H
 
 #include <QMainWindow>
-#include <QWidget>
-#include <QGraphicsScene>
-#include <QGraphicsView>
 #include <QGraphicsPixmapItem>
 #include <QTimer>
 #include <QTimeLine>
@@ -12,18 +9,19 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QtGui/QApplication>
 #include <QKeyEvent>
-#include <cctype>
+#include <QWidget>
+#include <QtGui/QApplication>
 #include "grid.h"
 #include "redekopp.h"
+#include "graphicwindow.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500
 #define DIM 8
 #define SIZE 64
 
-class Main : public QWidget {
+class Main : public QMainWindow {
     Q_OBJECT
     
   public:
@@ -31,20 +29,14 @@ class Main : public QWidget {
     explicit Main(QApplication *);
     ~Main();
 
-    void show();
-    
-  protected:
-
-    void keyPressEvent( QKeyEvent *e );
+    //void show();
     
   private:
 
     /**Pointer to QApp needed to quit game*/
     QApplication *app;
-    /**GraphicsScene of the application*/
-    QGraphicsScene *scene;
-    /**GraphicsView of the applicatoin*/
-    QGraphicsView *view;
+    /**GraphicWindow consists of scene and view*/
+    GraphicWindow *view;
     /**PushButton that starts the game*/
     QPushButton *start;
     /**PushButton that exits application*/
@@ -65,6 +57,9 @@ class Main : public QWidget {
     QPixmap *redekopp;
     /**Object of protagonist*/
     Redekopp *protagonist;
+    
+  protected:
+  	void keyPressEvent( QKeyEvent *e );
     
   public slots:
 	
