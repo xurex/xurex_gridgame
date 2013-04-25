@@ -1,22 +1,20 @@
-#ifndef REDEKOPP_H
-#define REDEKOPP_H
+#ifndef POINT_DOWN_H
+#define POINT_DOWN_H
 
 #include<iostream>
+#include<stdlib.h>
+#include<time.h>
 #include<QGraphicsPixmapItem>
 using namespace std;
 
-class Redekopp: public QGraphicsPixmapItem {
+class PointDown: public QGraphicsPixmapItem {
 
   public:
-    Redekopp (QPixmap *pm, int nx, int ny);
-    ~Redekopp() {delete this;}
+    PointDown ();
+    ~PointDown() { delete pixMap; }
+    
+    void move();
     //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
-    void move_left();
-    void move_right();
-    void move_up();
-    void move_down();
-    int getX();
-    int getY();
   private:  //Every thing has a origin and a velocity – maybe 0
     int x;
     int y;
@@ -24,4 +22,4 @@ class Redekopp: public QGraphicsPixmapItem {
     
 };
 
-#endif //REDEKOPP_H
+#endif //POINT_DOWN_H

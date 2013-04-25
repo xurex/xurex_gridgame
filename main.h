@@ -15,9 +15,11 @@
 #include "grid.h"
 #include "redekopp.h"
 #include "graphicwindow.h"
+#include "point_up.h"
+#include "point_down.h"
 
-#define WINDOW_MAX_X 500
-#define WINDOW_MAX_Y 500
+#define WINDOW_MAX_X 525
+#define WINDOW_MAX_Y 525
 #define DIM 8
 #define SIZE 64
 
@@ -58,6 +60,9 @@ class Main : public QMainWindow {
     /**Object of protagonist*/
     Redekopp *protagonist;
     
+    PointUp *rand;
+    PointDown *re;
+    
   protected:
   	void keyPressEvent( QKeyEvent *e );
     
@@ -65,7 +70,7 @@ class Main : public QMainWindow {
 	
 	void startGame();
 	void exitGame();
-	
+	void handleTimer();
 };
 
 #endif // MAIN_H

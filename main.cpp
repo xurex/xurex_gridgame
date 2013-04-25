@@ -33,6 +33,7 @@ Main::Main(QApplication *mainapp)  {
     //Connects
     connect(start, SIGNAL(clicked()), this, SLOT(startGame()));
     connect(quit , SIGNAL(clicked()), this, SLOT(exitGame()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
     
     //Protagonist
     redekopp = new QPixmap("./Images/redekopp.png");
@@ -66,7 +67,7 @@ void Main::startGame()
 {
 	if(inPlay)
 		return;
-	else{
+
 	  inPlay = true;
 	  message->setText("Game started...good luck");
 	  board = new Grid*[SIZE];
@@ -86,8 +87,13 @@ void Main::startGame()
 	  	y+=wh;
 	  }
 	  view->scene->addItem(protagonist);
-        }
-        setFocus();
+	  
+	  //temp testing shit
+          rand = new PointUp();
+          re = new PointDown();
+          view->scene->addItem(rand);
+          view->scene->addItem(re);
+          timer->start();
 }
 
 void Main::exitGame()
@@ -107,12 +113,17 @@ void Main::keyPressEvent( QKeyEvent *e ) {
 		case Qt::Key_D://Qt::Key_Right :
 			protagonist->move_right();	break;
 		case Qt::Key_W://Qt::Key_Up :
-			protagonist->move_up();		break;
+			protagonist->move_up();	        break;
 		case Qt::Key_S://Qt::Key_Down:
 			protagonist->move_down();	break;
 	}
 }
 
+void Main::handleTimer()
+{
+	rand->move();
+	re->move();
+}
 
 /**Destructor*/
 Main::~Main()
