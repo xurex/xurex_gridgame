@@ -1,13 +1,11 @@
 #ifndef POINT_UP_H
 #define POINT_UP_H
 
-#include<iostream>
 #include<stdlib.h>
 #include<time.h>
-#include<QGraphicsPixmapItem>
-using namespace std;
+#include"thing.h"
 
-class PointUp: public QGraphicsPixmapItem {
+class PointUp: public Thing {
 
   public:
     PointUp ();

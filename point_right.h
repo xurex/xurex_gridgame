@@ -1,15 +1,15 @@
-#ifndef POINT_DOWN_H
-#define POINT_DOWN_H
+#ifndef POINT_RIGHT_H
+#define POINT_RIGHT_H
 
 #include<stdlib.h>
 #include<time.h>
 #include"thing.h"
 
-class PointDown: public Thing {
+class PointRight: public Thing {
 
   public:
-    PointDown ();
-    ~PointDown() { delete pixMap; }
+    PointRight ();
+    ~PointRight() { delete pixMap; }
     
     void move();
     //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
@@ -20,4 +20,4 @@ class PointDown: public Thing {
     
 };
 
-#endif //POINT_DOWN_H
+#endif //POINT_RIGHT_H

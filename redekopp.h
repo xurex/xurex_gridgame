@@ -1,16 +1,15 @@
 #ifndef REDEKOPP_H
 #define REDEKOPP_H
 
-#include<iostream>
-#include<QGraphicsPixmapItem>
-using namespace std;
+#include "thing.h"
 
-class Redekopp: public QGraphicsPixmapItem {
+class Redekopp: public Thing {
 
   public:
     Redekopp (QPixmap *pm, int nx, int ny);
-    ~Redekopp() {delete this;}
-    //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
+    ~Redekopp() { }
+    void move();
+    void move(int);
     void move_left();
     void move_right();
     void move_up();

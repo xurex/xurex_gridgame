@@ -6,7 +6,7 @@ Main::Main(QApplication *mainapp)  {
     //Sets data member app to QApp
     app = mainapp;
     //Sets game condition to not in play
-    inPlay = false;
+    inPlay = false; paused = false;
     
     //Creates GraphicWindow
     view = new GraphicWindow(this);
@@ -89,10 +89,14 @@ void Main::startGame()
 	  view->scene->addItem(protagonist);
 	  
 	  //temp testing shit
-          rand = new PointUp();
-          re = new PointDown();
-          view->scene->addItem(rand);
-          view->scene->addItem(re);
+          up = new PointUp();
+          down = new PointDown();
+          left = new PointLeft();
+          right = new PointRight();
+          view->scene->addItem(up);
+          view->scene->addItem(down);
+          view->scene->addItem(left);
+          view->scene->addItem(right);
           timer->start();
 }
 
@@ -109,20 +113,33 @@ void Main::keyPressEvent( QKeyEvent *e ) {
 	switch (e->key()) 
 	{
 		case Qt::Key_A://Qt::Key_Left :
-			protagonist->move_left();	break;
+			if(!paused) protagonist->move_left();	break;
 		case Qt::Key_D://Qt::Key_Right :
-			protagonist->move_right();	break;
+			if(!paused) protagonist->move_right();	break;
 		case Qt::Key_W://Qt::Key_Up :
-			protagonist->move_up();	        break;
+			if(!paused) protagonist->move_up();	break;
 		case Qt::Key_S://Qt::Key_Down:
-			protagonist->move_down();	break;
+			if(!paused) protagonist->move_down();	break;
+		case Qt::Key_P:
+			if(!paused)
+			{
+				timer->stop();
+				paused = true;
+			}
+			else
+			{
+				timer->start(); 
+				paused = false;
+			}
 	}
 }
 
 void Main::handleTimer()
 {
-	rand->move();
-	re->move();
+	left->move();
+	right->move();
+	up->move();
+	down->move();
 }
 
 /**Destructor*/

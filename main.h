@@ -13,10 +13,13 @@
 #include <QWidget>
 #include <QtGui/QApplication>
 #include "grid.h"
+#include "thing.h"
 #include "redekopp.h"
 #include "graphicwindow.h"
 #include "point_up.h"
 #include "point_down.h"
+#include "point_left.h"
+#include "point_right.h"
 
 #define WINDOW_MAX_X 525
 #define WINDOW_MAX_Y 525
@@ -51,6 +54,8 @@ class Main : public QMainWindow {
     QPixmap *background;
     /**checks to see if the game is started*/
     bool inPlay;
+    /**checks to see if the game is paused*/
+    bool paused;
     /**Array of QGraphicsRectItem * to form grid*/
     Grid** board;
     /**Counter used throughout main*/
@@ -60,8 +65,10 @@ class Main : public QMainWindow {
     /**Object of protagonist*/
     Redekopp *protagonist;
     
-    PointUp *rand;
-    PointDown *re;
+    PointUp *up;
+    PointDown *down;
+    PointLeft *left;
+    PointRight *right;
     
   protected:
   	void keyPressEvent( QKeyEvent *e );

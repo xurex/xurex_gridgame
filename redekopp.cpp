@@ -9,6 +9,29 @@ Redekopp::Redekopp( QPixmap* p, int nx, int ny )
   setPos( x, y ); //how you set the position
 }
 
+void Redekopp::move()
+{
+	//just overwriting void
+	return;
+}
+//useless code
+void Redekopp::move(int dir)
+{
+	switch(dir)
+	{
+		case 1:
+			move_left(); break;
+		case 2:
+			move_right(); break;
+		case 3:
+			move_up(); break;
+		case 4:
+			move_down(); break;
+		default:
+			break;
+	}
+}
+
 void Redekopp::move_left()
 {
 	if(x==100)
