@@ -4,6 +4,7 @@ Ladebug::Ladebug( )
 {
   pixMap = new QPixmap("./Images/ladebug.png");
   setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
+  deleteMe=false;
   srand(time(NULL));
   int pos = rand()%8+2;
   side = rand()%4+1;
@@ -34,22 +35,22 @@ void Ladebug::move()
     	case 1://left
     		x += 10;
     		if(x==500)
-    		delete this;
+    			deleteMe=true;
     		moveBy(10, 0);	break;
     	case 2://right
     		x -= 10;
     		if(x==0)
-    		delete this;
+    			deleteMe=true;
     		moveBy(-10, 0);	break;
     	case 3://up
     		y -= 10;
     		if(y==0)
-    		delete this;
+    			deleteMe=true;
     		moveBy(0, -10);	break;
     	case 4://down
     		y += 10;
     		if(y==500)
-    		delete this;
+    			deleteMe=true;
     		moveBy(0, 10);	break;
     	default:
     		cout<<"nothing selected in ladebug move"<<endl; break;
