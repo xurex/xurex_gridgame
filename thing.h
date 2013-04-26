@@ -10,6 +10,7 @@ public:
     Thing () { }
     virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
     bool deleteMe;
+    void setDelete() {deleteMe=true;}
 private:  //Every thing has a origin and a velocity – maybe 0
     int x;
     int y;

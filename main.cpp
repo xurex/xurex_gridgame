@@ -8,7 +8,7 @@ Main::Main(QApplication *mainapp)  {
     //Sets game condition to not in play
     inPlay = false; paused = false;
     
-    count = 0;
+    count = 0; tree = 0;
     
     //Creates GraphicWindow
     view = new GraphicWindow(this);
@@ -189,6 +189,17 @@ void Main::handleTimer()
 		bug = new Ladebug();
 		pointers.push_back(bug);
 		view->scene->addItem(pointers[pointers.size()-1]);
+	}
+	if(count%350==0)
+	{
+		Tree *rand;
+		rand = new Tree();
+		pointers.push_back(rand); tree = pointers.size()-1;
+		view->scene->addItem(pointers[pointers.size()-1]);
+	}
+	if(count%550==0)
+	{
+		pointers[tree]->setDelete();
 	}
 	for(unsigned int i=0; i<pointers.size(); i++)
 	{

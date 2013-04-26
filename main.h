@@ -25,6 +25,7 @@
 #include "point_right.h"
 #include "ladebug.h"
 #include "bonus.h"
+#include "tree.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500
@@ -71,6 +72,8 @@ class Main : public QMainWindow {
     Redekopp *protagonist;
     /**Vector of Pointer things*/
     std::vector<Thing*> pointers;
+    /**Stores index of tree in vector*/
+    int tree;
     
   protected:
   	void keyPressEvent( QKeyEvent *e );
