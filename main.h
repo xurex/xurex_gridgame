@@ -12,6 +12,9 @@
 #include <QKeyEvent>
 #include <QWidget>
 #include <QtGui/QApplication>
+#include <stdlib.h>
+#include <time.h>
+#include <vector>
 #include "grid.h"
 #include "thing.h"
 #include "redekopp.h"
@@ -20,9 +23,10 @@
 #include "point_down.h"
 #include "point_left.h"
 #include "point_right.h"
+#include "ladebug.h"
 
-#define WINDOW_MAX_X 525
-#define WINDOW_MAX_Y 525
+#define WINDOW_MAX_X 500
+#define WINDOW_MAX_Y 500
 #define DIM 8
 #define SIZE 64
 
@@ -59,16 +63,13 @@ class Main : public QMainWindow {
     /**Array of QGraphicsRectItem * to form grid*/
     Grid** board;
     /**Counter used throughout main*/
-    int count;
+    unsigned int count;
     /**Image of protagonist*/
     QPixmap *redekopp;
     /**Object of protagonist*/
     Redekopp *protagonist;
-    
-    PointUp *up;
-    PointDown *down;
-    PointLeft *left;
-    PointRight *right;
+    /**Vector of Pointer things*/
+    std::vector<Thing*> pointers;
     
   protected:
   	void keyPressEvent( QKeyEvent *e );

@@ -8,6 +8,8 @@ Main::Main(QApplication *mainapp)  {
     //Sets game condition to not in play
     inPlay = false; paused = false;
     
+    count = 0;
+    
     //Creates GraphicWindow
     view = new GraphicWindow(this);
     
@@ -88,15 +90,19 @@ void Main::startGame()
 	  }
 	  view->scene->addItem(protagonist);
 	  
-	  //temp testing shit
-          up = new PointUp();
-          down = new PointDown();
-          left = new PointLeft();
-          right = new PointRight();
-          view->scene->addItem(up);
-          view->scene->addItem(down);
-          view->scene->addItem(left);
-          view->scene->addItem(right);
+	  PointUp *up = new PointUp();
+	  PointDown *down = new PointDown();
+	  PointLeft *left = new PointLeft();
+	  PointRight *right = new PointRight();
+	  pointers.push_back(up);
+	  view->scene->addItem(pointers[pointers.size()-1]);
+	  pointers.push_back(down);
+	  view->scene->addItem(pointers[pointers.size()-1]);
+	  pointers.push_back(left);
+	  view->scene->addItem(pointers[pointers.size()-1]);
+	  pointers.push_back(right);
+	  view->scene->addItem(pointers[pointers.size()-1]);
+
           timer->start();
 }
 
@@ -136,15 +142,56 @@ void Main::keyPressEvent( QKeyEvent *e ) {
 
 void Main::handleTimer()
 {
-	left->move();
-	right->move();
-	up->move();
-	down->move();
+	if(count%10==0)
+	{
+		srand(time(NULL));
+		int dir = rand()%4+1;
+		if(dir==1)
+		{
+		     PointUp *up;
+		     up = new PointUp();
+		     pointers.push_back(up); 
+		     view->scene->addItem(pointers[pointers.size()-1]);
+		}
+		else if(dir==2)
+		{
+		     PointDown *down;
+		     down = new PointDown();
+		     pointers.push_back(down);
+		     view->scene->addItem(pointers[pointers.size()-1]);
+		}
+		else if(dir==3)
+		{
+		     PointLeft *left;
+		     left = new PointLeft();
+		     pointers.push_back(left);
+		     view->scene->addItem(pointers[pointers.size()-1]);
+		}
+		else if(dir==4)
+		{
+		     PointRight *right;
+		     right = new PointRight();
+		     pointers.push_back(right);
+		     view->scene->addItem(pointers[pointers.size()-1]);
+		}
+	}
+	if(count%301==0)
+	{
+		Ladebug *bug;
+		bug = new Ladebug();
+		pointers.push_back(bug);
+		view->scene->addItem(pointers[pointers.size()-1]);
+	}
+	for(unsigned int i=0; i<pointers.size(); i++)
+	{pointers[i]->move();}
+	
+	count++;
 }
 
 /**Destructor*/
 Main::~Main()
 {
+	//FINISH THIS SHIT
 	delete view;
 	delete start;
 	delete quit;
