@@ -14,11 +14,13 @@ class Redekopp: public Thing {
     void move_right();
     void move_up();
     void move_down();
+    void lifeDown();
     int getX();
     int getY();
   private:  //Every thing has a origin and a velocity – maybe 0
     int x;
     int y;
+    int life;
     QPixmap *pixMap;  //Good idea. Explain later.
     
 };

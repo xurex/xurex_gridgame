@@ -24,6 +24,7 @@
 #include "point_left.h"
 #include "point_right.h"
 #include "ladebug.h"
+#include "bonus.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500

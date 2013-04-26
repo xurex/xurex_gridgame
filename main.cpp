@@ -74,7 +74,7 @@ void Main::startGame()
 	  message->setText("Game started...good luck");
 	  board = new Grid*[SIZE];
 	  double wh = 50;
-	  double x, y; x=y=50;
+	  double x, y; x=y=100;
 	  count = 0;
 	  for(int i=0; i<DIM; i++)
 	  {
@@ -85,7 +85,7 @@ void Main::startGame()
 	  	  board[count]=temp;
 	  	  view->scene->addItem(board[count]); count++;
 	  	}
-	  	x=50;
+	  	x=100;
 	  	y+=wh;
 	  }
 	  view->scene->addItem(protagonist);
@@ -175,7 +175,15 @@ void Main::handleTimer()
 		     view->scene->addItem(pointers[pointers.size()-1]);
 		}
 	}
-	if(count%301==0)
+	int event = rand()%500;
+	if(event==1)
+	{
+		Bonus *bonus;
+		bonus = new Bonus();
+		pointers.push_back(bonus);
+		view->scene->addItem(pointers[pointers.size()-1]);
+	}
+	if(event==2)
 	{
 		Ladebug *bug;
 		bug = new Ladebug();
