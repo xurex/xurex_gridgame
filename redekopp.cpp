@@ -4,7 +4,7 @@ Redekopp::Redekopp( QPixmap* p, int nx, int ny )
 {
   pixMap = p; //Handy to store separate to get image width/height, etc.
   setPixmap( *p );  //First Qt method that doesn’t take a pointer :->
-  life = 3;
+  life = 5;
   x = nx;
   y = ny;
   setPos( x, y ); //how you set the position
@@ -15,6 +15,17 @@ void Redekopp::lifeDown()
 	--life;
 	cout<<"lives: "<<life<<endl;
 }	
+
+void Redekopp::lifeUp()
+{
+	++life;
+	cout<<"lives: "<<life<<endl;
+}
+
+int Redekopp::getLife()
+{
+	return life;
+}
 
 void Redekopp::move()
 {

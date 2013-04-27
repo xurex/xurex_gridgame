@@ -15,6 +15,8 @@ class Redekopp: public Thing {
     void move_up();
     void move_down();
     void lifeDown();
+    void lifeUp();
+    int getLife();
     int getX();
     int getY();
   private:  //Every thing has a origin and a velocity – maybe 0

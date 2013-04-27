@@ -26,6 +26,8 @@
 #include "ladebug.h"
 #include "bonus.h"
 #include "tree.h"
+#include "ram.h"
+#include "heap.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500
@@ -39,6 +41,12 @@ class Main : public QMainWindow {
 
     explicit Main(QApplication *);
     ~Main();
+    
+    void makeUp();
+    void makeDown();
+    void makeLeft();
+    void makeRight();
+    void clear();
 
     //void show();
     
@@ -72,8 +80,12 @@ class Main : public QMainWindow {
     Redekopp *protagonist;
     /**Vector of Pointer things*/
     std::vector<Thing*> pointers;
-    /**Stores index of tree in vector*/
-    int tree;
+    /**Pointer to the single ram that is used*/
+    Ram *ram;
+    /**Checks to see if the ram is running and tracks distance*/
+    int runningRam;
+    /**Sets time interval*/
+    int speed;
     
   protected:
   	void keyPressEvent( QKeyEvent *e );

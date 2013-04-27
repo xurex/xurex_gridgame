@@ -4,7 +4,7 @@ PointUp::PointUp( )
 {
   pixMap = new QPixmap("./Images/pointer_up.png");
   setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
-  deleteMe=false;
+  deleteMe=false; isBad=true;
   srand(time(NULL));
   int pos = rand()%8+2;
   x = pos*50;
@@ -15,7 +15,7 @@ PointUp::PointUp( )
 void PointUp::move()
 {
     	y -= 10;
-    	if(y==0)
+    	if(y==20)
     		deleteMe=true;
     	moveBy(0, -10);
 }

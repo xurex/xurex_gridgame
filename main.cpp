@@ -8,7 +8,7 @@ Main::Main(QApplication *mainapp)  {
     //Sets game condition to not in play
     inPlay = false; paused = false;
     
-    count = 0; tree = 0;
+    count = 0; runningRam=0;
     
     //Creates GraphicWindow
     view = new GraphicWindow(this);
@@ -24,14 +24,16 @@ Main::Main(QApplication *mainapp)  {
     message->setText("Welcome to Comp Sci Craze");
     
     //Timer
+    speed = 101;
     timer = new QTimer(this);
-    timer->setInterval(100);
+    timer->setInterval(speed);
     
     //Background
+    /*
     background = new QPixmap("./Images/compsci.jpg");
     view->scene->setBackgroundBrush(background->scaled
-    (WINDOW_MAX_X,WINDOW_MAX_Y,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-    
+    (WINDOW_MAX_X,WINDOW_MAX_Y,Qt::IgnoreAspectRatio));
+    */
     //Connects
     connect(start, SIGNAL(clicked()), this, SLOT(startGame()));
     connect(quit , SIGNAL(clicked()), this, SLOT(exitGame()));
@@ -39,7 +41,7 @@ Main::Main(QApplication *mainapp)  {
     
     //Protagonist
     redekopp = new QPixmap("./Images/redekopp.png");
-    protagonist = new Redekopp(redekopp, 100, 100);
+    protagonist = new Redekopp(redekopp, 250, 250);
     
     //Sets focus for MainWindow
     setFocus();
@@ -89,19 +91,8 @@ void Main::startGame()
 	  	y+=wh;
 	  }
 	  view->scene->addItem(protagonist);
-	  
-	  PointUp *up = new PointUp();
-	  PointDown *down = new PointDown();
-	  PointLeft *left = new PointLeft();
-	  PointRight *right = new PointRight();
-	  pointers.push_back(up);
-	  view->scene->addItem(pointers[pointers.size()-1]);
-	  pointers.push_back(down);
-	  view->scene->addItem(pointers[pointers.size()-1]);
-	  pointers.push_back(left);
-	  view->scene->addItem(pointers[pointers.size()-1]);
-	  pointers.push_back(right);
-	  view->scene->addItem(pointers[pointers.size()-1]);
+	  //PRECLUDES SCENE SHIFT
+	  makeUp(); makeDown(); makeLeft(); makeRight();
 
           timer->start();
 }
@@ -137,70 +128,109 @@ void Main::keyPressEvent( QKeyEvent *e ) {
 				timer->start(); 
 				paused = false;
 			}
+			break;
+		case Qt::Key_C:
+			if(speed>20)
+			{
+				speed-=10; cout<<"SPEED IS NOW: "<<speed<<endl;
+				timer->setInterval(speed);
+			}
+			break;
 	}
 }
 
 void Main::handleTimer()
 {
+	//POINTER CODE
 	if(count%10==0)
 	{
 		srand(time(NULL));
 		int dir = rand()%4+1;
 		if(dir==1)
 		{
-		     PointUp *up;
-		     up = new PointUp();
-		     pointers.push_back(up); 
-		     view->scene->addItem(pointers[pointers.size()-1]);
+		     makeUp();
 		}
 		else if(dir==2)
 		{
-		     PointDown *down;
-		     down = new PointDown();
-		     pointers.push_back(down);
-		     view->scene->addItem(pointers[pointers.size()-1]);
+		     makeLeft();
 		}
 		else if(dir==3)
 		{
-		     PointLeft *left;
-		     left = new PointLeft();
-		     pointers.push_back(left);
-		     view->scene->addItem(pointers[pointers.size()-1]);
+		     makeRight();
 		}
 		else if(dir==4)
 		{
-		     PointRight *right;
-		     right = new PointRight();
-		     pointers.push_back(right);
-		     view->scene->addItem(pointers[pointers.size()-1]);
+		     makeDown();
 		}
 	}
-	int event = rand()%500;
-	if(event==1)
+	//BONUS AND LADEBUG CODE
+	if(count%666==0)
 	{
 		Bonus *bonus;
 		bonus = new Bonus();
 		pointers.push_back(bonus);
 		view->scene->addItem(pointers[pointers.size()-1]);
 	}
-	if(event==2)
+	if(count%356==0)
 	{
 		Ladebug *bug;
 		bug = new Ladebug();
 		pointers.push_back(bug);
 		view->scene->addItem(pointers[pointers.size()-1]);
 	}
+	//RAM & HEAP CODE
+	int checker = count%200;
+	if(checker==0)
+	{
+		ram = new Ram();
+		view->scene->addItem(ram);
+		runningRam+=1;
+	}
+	if(runningRam)
+	{
+		int ramcheck = checker%14;
+		if(ramcheck>0&&ramcheck<6)
+		{
+			ram->move(); runningRam++;
+		}
+		if(runningRam==50)
+		{
+			runningRam=0; delete ram;
+		}
+		if(ramcheck==0)
+		{
+			if(ram->getX()<=400&&ram->getX()>=50)
+			{
+			   Heap *heap;
+			   heap = new Heap(ram->getX()+50);
+			   pointers.push_back(heap);
+			   view->scene->addItem(pointers[pointers.size()-1]);
+			}
+		}
+	}
+	//TREE CODE
 	if(count%350==0)
 	{
 		Tree *rand;
 		rand = new Tree();
-		pointers.push_back(rand); tree = pointers.size()-1;
+		pointers.push_back(rand);
 		view->scene->addItem(pointers[pointers.size()-1]);
 	}
-	if(count%550==0)
+	if(count%400==0)
 	{
-		pointers[tree]->setDelete();
+		Tree *rand;
+		rand = new Tree();
+		pointers.push_back(rand);
+		view->scene->addItem(pointers[pointers.size()-1]);
 	}
+	if(count%375==0)
+	{
+		Tree *rand;
+		rand = new Tree();
+		pointers.push_back(rand);
+		view->scene->addItem(pointers[pointers.size()-1]);
+	}
+	//MOVE AND DELETE CODE FOR VECTOR
 	for(unsigned int i=0; i<pointers.size(); i++)
 	{
 	   pointers[i]->move();
@@ -210,8 +240,98 @@ void Main::handleTimer()
 	   	pointers.erase(pointers.begin()+i);
 	   }
 	}
-	
+	//CHECKS COLLISIONS
+	for(unsigned int i=0; i<pointers.size(); i++)
+	{
+	   if(protagonist->collidesWithItem(pointers[i], Qt::IntersectsItemShape))
+	   {
+	   	if(pointers[i]->isBad)
+	   	{
+	   		protagonist->lifeDown();
+	   		delete pointers[i];
+	   		pointers.erase(pointers.begin()+i);
+	   		if(!protagonist->getLife())
+	   		{
+	   			timer->stop(); inPlay=false; cout<<"LOSER!!"<<endl;
+	   		}
+	   	}
+	   	else if(!pointers[i]->isBad)//good items
+	   	{
+	   		if(pointers[i]->isBonus)
+	   		{
+	   			if(protagonist->getLife()==5)
+	   			{
+	   				//increase score!!
+	   				cout<<"SCORE BONUS"<<endl;
+	   			}
+	   			else
+	   			{
+	   				protagonist->lifeUp(); cout<<"LIFE BONUS"<<endl;
+	   			}
+	   			delete pointers[i];
+	   			pointers.erase(pointers.begin()+i);
+	   		}
+	   		else if(!pointers[i]->isBonus)//ladebug
+	   		{
+	   			clear(); cout<<"LADEFUCKINGBUG"<<endl;
+	   		}
+	   	}
+	   }
+	}
 	count++;
+	//SPEEDS GAME UP
+	if(count%1000==0)
+	{
+		if(speed>25)
+		{
+		speed -= 25; cout<<"SPEED IS NOW: "<<speed<<endl;
+		timer->setInterval(speed);
+		}
+	}
+	//DEBUG STATE
+	if(count%100==0)
+		cout<<"count is now: "<<count<<endl;
+}
+
+void Main::makeUp()
+{
+	PointUp *up;
+	up = new PointUp();
+	pointers.push_back(up); 
+	view->scene->addItem(pointers[pointers.size()-1]);
+}
+
+void Main::makeDown()
+{
+	PointDown *down;
+	down = new PointDown();
+	pointers.push_back(down);
+	view->scene->addItem(pointers[pointers.size()-1]);
+}
+
+void Main::makeLeft()
+{
+	PointLeft *left;
+	left = new PointLeft();
+	pointers.push_back(left);
+	view->scene->addItem(pointers[pointers.size()-1]);
+}
+
+void Main::makeRight()
+{
+	PointRight *right;
+	right = new PointRight();
+	pointers.push_back(right);
+	view->scene->addItem(pointers[pointers.size()-1]);
+}
+
+void Main::clear()
+{
+	for(unsigned int i=0; i<pointers.size(); i++)
+	{
+		delete pointers[i];
+		pointers.erase(pointers.begin()+i);
+	}
 }
 
 /**Destructor*/

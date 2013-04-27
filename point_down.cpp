@@ -4,7 +4,7 @@ PointDown::PointDown( )
 {
   pixMap = new QPixmap("./Images/pointer_down.png");
   setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
-  deleteMe=false;
+  deleteMe=false; isBad=true;
   srand(time(NULL));
   int pos = rand()%8+2;
   x = pos*50;

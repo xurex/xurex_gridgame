@@ -11,7 +11,7 @@ class Ladebug: public Thing {
     Ladebug ();
     ~Ladebug() { delete pixMap; }
     
-    void move();
+    void move(); bool isBonus;
     //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
   private:  //Every thing has a origin and a velocity – maybe 0
     int x;
