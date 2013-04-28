@@ -257,7 +257,7 @@ void Main::handleTimer()
 	   	}
 	   	else if(!pointers[i]->isBad)//good items
 	   	{
-	   		if(pointers[i]->isBonus)
+	   		if(pointers[i]->isBonus==true)
 	   		{
 	   			if(protagonist->getLife()==5)
 	   			{
@@ -271,9 +271,9 @@ void Main::handleTimer()
 	   			delete pointers[i];
 	   			pointers.erase(pointers.begin()+i);
 	   		}
-	   		else if(!pointers[i]->isBonus)//ladebug
+	   		else if(pointers[i]->isBonus==false)
 	   		{
-	   			clear(); cout<<"LADEFUCKINGBUG"<<endl;
+	   			timer->stop(); clear(); timer->start();
 	   		}
 	   	}
 	   }
