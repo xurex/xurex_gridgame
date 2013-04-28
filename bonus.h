@@ -11,7 +11,10 @@ class Bonus: public Thing {
     Bonus ();
     ~Bonus() { delete pixMap; }
     
-    void move(); bool isBonus;
+    void move(); 
+    
+  public:
+    bool isBonus; bool isBad;
     //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
   private:  //Every thing has a origin and a velocity – maybe 0
     int x;

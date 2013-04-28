@@ -22,8 +22,6 @@ Ladebug::Ladebug( )
      case 4://down
   	x = pos*50;
   	y = 50;		break;
-     default:
-        cout<<"nothing selected in ladebug"<<endl; break;
   }
   setPos( x, y ); //how you set the position
 }
@@ -52,7 +50,5 @@ void Ladebug::move()
     		if(y==500)
     			deleteMe=true;
     		moveBy(0, 10);	break;
-    	default:
-    		cout<<"nothing selected in ladebug move"<<endl; break;
    }
 }

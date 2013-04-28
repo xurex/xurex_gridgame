@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QString>
 #include <QKeyEvent>
 #include <QWidget>
 #include <QtGui/QApplication>
@@ -47,6 +48,8 @@ class Main : public QMainWindow {
     void makeLeft();
     void makeRight();
     void clear();
+    void setScore();
+    void setLife();
 
     //void show();
     
@@ -61,7 +64,13 @@ class Main : public QMainWindow {
     /**PushButton that exits application*/
     QPushButton *quit;
     /**displays messages to user*/
-    QLabel *message;
+    QLabel *score;
+    /**QString used to set QLabel score*/
+    QString sscore;
+    /**QString used to set QLabel lives*/
+    QString slives;
+    /**keeps track of lives*/
+    QLabel *lives;
     /**Timer used to run animations and game*/
     QTimer *timer;
     /**Background of scene*/
@@ -86,6 +95,8 @@ class Main : public QMainWindow {
     int runningRam;
     /**Sets time interval*/
     int speed;
+    /**Sets the score*/
+    int intscore;
     
   protected:
   	void keyPressEvent( QKeyEvent *e );

@@ -8,7 +8,7 @@ Main::Main(QApplication *mainapp)  {
     //Sets game condition to not in play
     inPlay = false; paused = false;
     
-    count = 0; runningRam=0;
+    count = 0; runningRam=0; intscore = 0;
     
     //Creates GraphicWindow
     view = new GraphicWindow(this);
@@ -17,11 +17,21 @@ Main::Main(QApplication *mainapp)  {
     start = new QPushButton("&Start", this);
     quit  = new QPushButton("&Quit", this);
     
-    //Message
-    message  = new QLabel(this);
-    message->setFrameStyle( QFrame::WinPanel | QFrame::Sunken );
-    message->setAlignment( Qt::AlignCenter );
-    message->setText("Welcome to Comp Sci Craze");
+    //Protagonist
+    redekopp = new QPixmap("./Images/redekopp.png");
+    protagonist = new Redekopp(redekopp, 250, 250);
+    
+    //SCORE
+    score  = new QLabel(this);
+    score->setFrameStyle( QFrame::WinPanel | QFrame::Sunken );
+    score->setAlignment( Qt::AlignCenter );
+    setScore();
+    
+    //LIVES
+    lives = new QLabel(this);
+    lives->setFrameStyle( QFrame::WinPanel | QFrame::Sunken );
+    lives->setAlignment( Qt::AlignCenter );
+    setLife();
     
     //Timer
     speed = 101;
@@ -39,10 +49,6 @@ Main::Main(QApplication *mainapp)  {
     connect(quit , SIGNAL(clicked()), this, SLOT(exitGame()));
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
     
-    //Protagonist
-    redekopp = new QPixmap("./Images/redekopp.png");
-    protagonist = new Redekopp(redekopp, 250, 250);
-    
     //Sets focus for MainWindow
     setFocus();
     
@@ -52,8 +58,12 @@ Main::Main(QApplication *mainapp)  {
     startquit->addWidget(start);
     startquit->addWidget(quit);
     
+    QHBoxLayout *display = new QHBoxLayout;
+    display->addWidget(score);
+    display->addWidget(lives);
+    
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(message);
+    layout->addLayout(display);
     layout->addWidget(view);
     layout->addLayout(startquit);
     
@@ -73,7 +83,6 @@ void Main::startGame()
 		return;
 
 	  inPlay = true;
-	  message->setText("Game started...good luck");
 	  board = new Grid*[SIZE];
 	  double wh = 50;
 	  double x, y; x=y=100;
@@ -247,12 +256,14 @@ void Main::handleTimer()
 	   {
 	   	if(pointers[i]->isBad)
 	   	{
-	   		protagonist->lifeDown();
+	   		protagonist->lifeDown(); setLife();
 	   		delete pointers[i];
 	   		pointers.erase(pointers.begin()+i);
 	   		if(!protagonist->getLife())
 	   		{
-	   			timer->stop(); inPlay=false; cout<<"LOSER!!"<<endl;
+	   			timer->stop(); inPlay=false;
+	   			score->setText("GAME"); lives->setText("OVER");
+	   			return;
 	   		}
 	   	}
 	   	else if(!pointers[i]->isBad)//good items
@@ -261,12 +272,11 @@ void Main::handleTimer()
 	   		{
 	   			if(protagonist->getLife()==5)
 	   			{
-	   				//increase score!!
-	   				cout<<"SCORE BONUS"<<endl;
+	   				intscore+=50; setScore();
 	   			}
 	   			else
 	   			{
-	   				protagonist->lifeUp(); cout<<"LIFE BONUS"<<endl;
+	   				protagonist->lifeUp(); setLife();
 	   			}
 	   			delete pointers[i];
 	   			pointers.erase(pointers.begin()+i);
@@ -278,7 +288,7 @@ void Main::handleTimer()
 	   	}
 	   }
 	}
-	count++;
+	count++; intscore++; setScore();
 	//SPEEDS GAME UP
 	if(count%1000==0)
 	{
@@ -288,9 +298,6 @@ void Main::handleTimer()
 		timer->setInterval(speed);
 		}
 	}
-	//DEBUG STATE
-	if(count%100==0)
-		cout<<"count is now: "<<count<<endl;
 }
 
 void Main::makeUp()
@@ -334,6 +341,18 @@ void Main::clear()
 	}
 }
 
+void Main::setScore()
+{
+	sscore = "Score: "; sscore.append(QString::number(intscore)); 
+	score->setText(sscore);
+}
+
+void Main::setLife()
+{
+	slives = "Lives: "; slives.append(QString::number(protagonist->getLife()));
+    	lives->setText(slives);
+}
+
 /**Destructor*/
 Main::~Main()
 {
@@ -341,7 +360,7 @@ Main::~Main()
 	delete view;
 	delete start;
 	delete quit;
-	delete message;
+	delete score;
 	delete timer;
 	for(int i=0; i<SIZE; i++)
 	{
