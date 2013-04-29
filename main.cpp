@@ -228,7 +228,7 @@ void Main::handleTimer()
 		}
 	}
 	//BONUS AND LADEBUG CODE
-	if(count%666==0)
+	if(count%75==0)
 	{
 		Bonus *bonus;
 		bonus = new Bonus();
@@ -325,14 +325,12 @@ void Main::handleTimer()
 	   	{
 	   		if(pointers[i]->which==2)
 	   		{
-	   			if(protagonist->getLife()==5)
-	   			{
-	   				intscore+=200; setScore(); cout<<"score up"<<endl;
-	   			}
-	   			else
+	   			//if(protagonist->getLife()==5)
+	   			intscore+=200; setScore(); cout<<"score up"<<endl;
+	   			/*else
 	   			{
 	   				protagonist->lifeUp();setLife(); cout<<"life"<<endl;
-	   			}
+	   			}*/
 	   			delete pointers[i];
 	   			pointers.erase(pointers.begin()+i);
 	   		}

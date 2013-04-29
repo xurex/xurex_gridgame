@@ -4,20 +4,33 @@
 #include<stdlib.h>
 #include<time.h>
 #include"thing.h"
-
+/**
+This class creates an object similar to PointDown but is created based on X coordinate
+@author Rex Xu
+*/
 class Heap: public Thing {
 
   public:
+    /**Constructor*/
     Heap ();
+    /**
+    Constructor
+    @param nx The x coordinate that heap falls from*/
     Heap (int nx);
+    /**Destructor*/
     ~Heap() { delete pixMap; }
-    
+    /**Moves the heap down the scene*/
     void move();
-    //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
-  private:  //Every thing has a origin and a velocity – maybe 0
+    private:
+  /**
+    X coordinate in scene*/
     int x;
+    /**
+    Y coordinate in scene*/
     int y;
-    QPixmap *pixMap;  //Good idea. Explain later.
+    /**
+    Holds the image of the thing*/
+    QPixmap *pixMap;
     
 };
 

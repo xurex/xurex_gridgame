@@ -4,24 +4,22 @@
 #include<stdlib.h>
 #include<time.h>
 #include"thing.h"
-
+/**
+Class that moves similar to Ladebug and creates and object that enters randomly
+@author Rex Xu*/
 class Bonus: public Thing {
 
   public:
+    /**Constructor*/
     Bonus ();
+    /**Destructor*/
     ~Bonus() { delete pixMap; }
-    
+    /**Moves the object in a direction depending on side*/
     void move(); 
-    
-  public:
-    bool isBad;
-    //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
-  private:  //Every thing has a origin and a velocity – maybe 0
-    int x;
-    int y;
+  private:
+
+    /**Tracks which side the object entered from*/
     int side; //left, right, up, down (1-4)
-    QPixmap *pixMap;  //Good idea. Explain later.
-    
 };
 
 #endif //BONUS_H

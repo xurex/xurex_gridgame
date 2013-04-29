@@ -4,19 +4,19 @@
 #include<stdlib.h>
 #include<time.h>
 #include"thing.h"
-
+/**
+Class that creates a Point object that goes left
+@author Rex Xu
+*/
 class PointLeft: public Thing {
 
   public:
+    /**Constructor*/
     PointLeft ();
+    /**Destructor*/
     ~PointLeft() { delete pixMap; }
-    
+    /**Moves Point object left*/
     void move();
-    //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
-  private:  //Every thing has a origin and a velocity – maybe 0
-    int x;
-    int y;
-    QPixmap *pixMap;  //Good idea. Explain later.
     
 };
 

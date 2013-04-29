@@ -4,12 +4,22 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
+/**
+This class encapsulates the scene and view in one class
+@author Rex Xu
+*/
 class GraphicWindow : public QGraphicsView
 {
   public:
+  	/**
+  	Constructor
+  	@param The parent of the GraphicWindow*/
   	GraphicWindow(QWidget*);
+  	/**Destructor*/
 	~GraphicWindow();
   public:
+  	/**
+  	The required GraphicsScene used in Qt*/
   	QGraphicsScene *scene;
   	
 };

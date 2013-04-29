@@ -14,9 +14,9 @@
 The grader should use the following procedure to compile and run the code:
 ```shell
 #Compile Instructions
-echo "Write command here"
+echo "qmake -project, qmake, make"
 #Doxygen Instructions
-echo "Write command here"
+echo "doxygen -g doxy, doxygen doxy"
 #Command to run
-echo "Write command here"
+echo "./game_rexxu"
 ```

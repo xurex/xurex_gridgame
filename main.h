@@ -37,23 +37,52 @@
 #define DIM 8
 #define SIZE 64
 
+/**
+   Class that inherits from QMainWindow. Used to implement game play.
+   @author RexXu
+*/
+
 class Main : public QMainWindow {
     Q_OBJECT
     
   public:
-
+    /**
+    Constructor
+    @param Pointer to QApp so that Main can exit
+    */
     explicit Main(QApplication *);
+    /**
+    Destructor
+    */
     ~Main();
-    
+    /**
+    Creates a PointUp object
+    */
     void makeUp();
+    /**
+    Creates a PointDown object
+    */
     void makeDown();
+    /**
+    Creates a PointLeft object
+    */
     void makeLeft();
+    /**
+    Creates a PointRight object
+    */
     void makeRight();
+    /**
+    Clears the array of things. Deallocates memory.
+    */
     void clear();
+    /**
+    Displays the current score to the QLabel score
+    */
     void setScore();
+    /**
+    Displays the current lives to the QLabel life
+    */
     void setLife();
-
-    //void show();
     
   private:
 
@@ -71,23 +100,21 @@ class Main : public QMainWindow {
     QString sscore;
     /**QString used to set QLabel lives*/
     QString slives;
-    /**keeps track of lives*/
+    /**Displays the number of lives*/
     QLabel *lives;
-    /**keeps track of name*/
+    /**Displays the name of player*/
     QLabel *name;
-    /**used to get input name*/
+    /**Used to get input name*/
     QLineEdit *nameIn;
-    /**layout used to get name*/
+    /**Layout used to get name*/
     QFormLayout *nameLay;
     /**Timer used to run animations and game*/
     QTimer *timer;
-    /**Background of scene*/
-    QPixmap *background;
-    /**checks to see if the game is started*/
+    /**Checks to see if the game is started*/
     bool inPlay;
-    /**checks to see if the game is paused*/
+    /**Checks to see if the game is paused*/
     bool paused;
-    /**checks to see if game is over*/
+    /**Checks to see if game is over*/
     bool gameover;
     /**Array of QGraphicsRectItem * to form grid*/
     Grid** board;
@@ -113,12 +140,20 @@ class Main : public QMainWindow {
     int intscore;
     
   protected:
+  	/**
+  	Handles key presses for WASD, P, C
+  	Exits if the game is paused or over*/
   	void keyPressEvent( QKeyEvent *e );
     
   public slots:
-	
+	/**
+	Starts the game by forming a grid, starting the timer, and created the character. Also used to restart the game. Sets all needed variables to zero or false.*/
 	void startGame();
+	/**
+	Exits the game by using QApp **/
 	void exitGame();
+	/**
+	Moves all the items in the array of things. Increases score. Handles collisions. Creates objects after predetermined periods of time.*/
 	void handleTimer();
 };
 

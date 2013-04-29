@@ -19,8 +19,3 @@ void Tree::move()
    if(deathCount==100)
    	deleteMe=true;
 }
-
-void Tree::setDelete()
-{
-	deleteMe=true;
-}

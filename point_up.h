@@ -4,20 +4,19 @@
 #include<stdlib.h>
 #include<time.h>
 #include"thing.h"
-
+/**
+Class that creates a Point object that goes up
+@author Rex Xu
+*/
 class PointUp: public Thing {
 
   public:
+    /**Constructor*/
     PointUp ();
+    /**Destructor*/
     ~PointUp() { delete pixMap; }
-    
+    /**Moves the PointUp object up the scene*/
     void move();
-    //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
-  private:  //Every thing has a origin and a velocity – maybe 0
-    int x;
-    int y;
-    QPixmap *pixMap;  //Good idea. Explain later.
-    
 };
 
 #endif //POINT_UP_H

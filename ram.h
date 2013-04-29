@@ -4,21 +4,22 @@
 #include<stdlib.h>
 #include<time.h>
 #include"thing.h"
-
+/**
+Creates a ram object that will move across the top of the screen
+@author Rex Xu*/
 class Ram: public Thing {
 
   public:
+    /**Constructor*/
     Ram ();
+    /**Destructor*/
     ~Ram() { delete pixMap; }
-    
+    /**Moves the ram left across the scene*/
     void move();
+    /**
+    Returns x coordinate
+    @return x*/
     int getX();
-    //virtual void move() = 0;  //virtual function. Class Thing is abstract. For a reason.
-  private:  //Every thing has a origin and a velocity – maybe 0
-    int x;
-    int y;
-    QPixmap *pixMap;  //Good idea. Explain later.
-    
 };
 
 #endif //RAM_H
