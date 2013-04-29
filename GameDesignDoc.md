@@ -1,7 +1,7 @@
 # Game Design Document
 
 ##Basic Gameplay Description
-//STILL NEED IMAGE FOR GAME SCREEN
+(for image see ./Images/game_screen.png)
 > A figure moves within a 8x8 grid to avoid objects that are flying across the screen. This top down game is "won" by achieving the highest score possible which entails staying alive as long as possible and picking up powerups. The game increases in speed as the game progresses until it becomes impossible to play.
 
 ###Scoring
