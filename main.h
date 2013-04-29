@@ -138,6 +138,8 @@ class Main : public QMainWindow {
     int speed;
     /**Sets the score*/
     int intscore;
+    /**Widget used to setCentralWidget*/
+    QWidget *window;
     
   protected:
   	/**

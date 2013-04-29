@@ -69,7 +69,7 @@ Main::Main(QApplication *mainapp)  {
     //Sets focus for MainWindow
     setFocus();
     
-    QWidget *window = new QWidget;
+    window = new QWidget;
     
     QHBoxLayout *startquit = new QHBoxLayout;
     startquit->addWidget(start);
@@ -411,14 +411,27 @@ void Main::setLife()
 /**Destructor*/
 Main::~Main()
 {
-	//FINISH THIS SHIT
-	delete view;
-	delete start;
-	delete quit;
-	delete score;
-	delete timer;
+    cout<<"In destructor!"<<endl;
+    //delete view; 
+    //delete start; 
+    //delete quit;  
+    //delete score;
+    //delete lives;
+    //delete name;
+    //delete nameIn;
+    //delete nameLay;
+    //delete timer; cout<<"after time ";
+    //delete redekopp;
+    delete instructions;
+    delete instructionpage;
+    //delete protagonist;
+    //delete ram;
+    if(inPlay)
+    {
 	for(int i=0; i<SIZE; i++)
 	{
 	   delete board[i];
 	}
+    	clear();
+    }
 }
