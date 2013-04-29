@@ -48,7 +48,7 @@ class Main : public QMainWindow {
   public:
     /**
     Constructor
-    @param Pointer to QApp so that Main can exit
+    @param mainapp Pointer to QApp so that Main can exit
     */
     explicit Main(QApplication *);
     /**

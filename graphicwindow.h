@@ -13,7 +13,7 @@ class GraphicWindow : public QGraphicsView
   public:
   	/**
   	Constructor
-  	@param The parent of the GraphicWindow*/
+  	@param x The parent of the GraphicWindow*/
   	GraphicWindow(QWidget*);
   	/**Destructor*/
 	~GraphicWindow();
