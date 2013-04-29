@@ -16,6 +16,7 @@ class Redekopp: public Thing {
     void move_down();
     void lifeDown();
     void lifeUp();
+    void lifeReset();
     int getLife();
     int getX();
     int getY();

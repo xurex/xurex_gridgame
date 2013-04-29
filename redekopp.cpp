@@ -94,6 +94,11 @@ void Redekopp::move_down()
 	}
 }
 
+void Redekopp::lifeReset()
+{
+	life=5; x=250; y=250; setPos(x,y);
+}
+
 int Redekopp::getX() {return x;}
 int Redekopp::getY() {return y;}
 

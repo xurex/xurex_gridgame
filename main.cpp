@@ -80,8 +80,30 @@ void Main::show() {
 void Main::startGame()
 {
 	if(inPlay)
+	{
+		if(timer->isActive())
+		{
+			timer->stop();
+		}
+		clear();
+		protagonist->lifeReset();
+		count = 1; intscore = 0;  speed=101;
+		timer->setInterval(speed);
+		if(runningRam)
+		{
+			delete ram; runningRam=0;
+		}
+		setScore(); setLife();
+		//PRECLUDES SCENE SHIFT
+	  	makeUp(); makeDown(); makeLeft(); makeRight();
+		if(!timer->isActive())
+		{
+			timer->start();
+			paused=false;
+		}
+		
 		return;
-
+	}
 	  inPlay = true;
 	  board = new Grid*[SIZE];
 	  double wh = 50;
@@ -334,11 +356,13 @@ void Main::makeRight()
 
 void Main::clear()
 {
+   for(unsigned int i=0; i<3; i++){
 	for(unsigned int i=0; i<pointers.size(); i++)
 	{
 		delete pointers[i];
 		pointers.erase(pointers.begin()+i);
 	}
+   }
 }
 
 void Main::setScore()
