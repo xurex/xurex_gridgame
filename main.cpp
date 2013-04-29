@@ -6,7 +6,7 @@ Main::Main(QApplication *mainapp)  {
     //Sets data member app to QApp
     app = mainapp;
     //Sets game condition to not in play
-    inPlay = false; paused = false;
+    inPlay = false; paused = false; gameover=false;
     
     count = 0; runningRam=0; intscore = 0;
     
@@ -33,6 +33,16 @@ Main::Main(QApplication *mainapp)  {
     lives->setAlignment( Qt::AlignCenter );
     setLife();
     
+    //Name
+    name = new QLabel(this);
+    name->setFrameStyle( QFrame::WinPanel | QFrame::Sunken );
+    name->setAlignment( Qt::AlignCenter );
+    name->setText("Average Joe");
+    
+    nameIn = new QLineEdit(this);
+    nameLay = new QFormLayout;
+    nameLay->addRow("Enter name: ", nameIn);
+    
     //Timer
     speed = 101;
     timer = new QTimer(this);
@@ -44,6 +54,13 @@ Main::Main(QApplication *mainapp)  {
     view->scene->setBackgroundBrush(background->scaled
     (WINDOW_MAX_X,WINDOW_MAX_Y,Qt::IgnoreAspectRatio));
     */
+    
+    //Instructions
+    instructions = new QPixmap("./Images/instructions.png");
+    instructionpage = new QGraphicsPixmapItem();
+    instructionpage->setPixmap(*instructions);
+    view->scene->addItem(instructionpage);
+    
     //Connects
     connect(start, SIGNAL(clicked()), this, SLOT(startGame()));
     connect(quit , SIGNAL(clicked()), this, SLOT(exitGame()));
@@ -59,11 +76,13 @@ Main::Main(QApplication *mainapp)  {
     startquit->addWidget(quit);
     
     QHBoxLayout *display = new QHBoxLayout;
+    display->addWidget(name);
     display->addWidget(score);
     display->addWidget(lives);
     
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(display);
+    layout->addLayout(nameLay);
     layout->addWidget(view);
     layout->addLayout(startquit);
     
@@ -79,8 +98,16 @@ void Main::show() {
 
 void Main::startGame()
 {
-	if(inPlay)
+	if(inPlay||gameover)
 	{
+		gameover=false;
+		paused = false;
+		QString thename;
+	  	thename=nameIn->text();
+	  	if(thename.size())
+	  	{
+	  	    name->setText(thename);
+	  	}
 		if(timer->isActive())
 		{
 			timer->stop();
@@ -101,10 +128,16 @@ void Main::startGame()
 			timer->start();
 			paused=false;
 		}
-		
+		setFocus();
 		return;
 	}
-	  inPlay = true;
+	  inPlay = true; view->scene->removeItem(instructionpage);
+	  QString thename;
+	  thename=nameIn->text();
+	  if(thename.size())
+	  {
+	  	name->setText(thename);
+	  }
 	  board = new Grid*[SIZE];
 	  double wh = 50;
 	  double x, y; x=y=100;
@@ -136,7 +169,7 @@ void Main::exitGame()
 void Main::keyPressEvent( QKeyEvent *e ) {
 	//We need to find out which key was pressed
 	//Let’s say we want to use the 4 arrow keys
-	if(!inPlay)
+	if(!inPlay||gameover)
 		return;
 	switch (e->key()) 
 	{
@@ -283,29 +316,29 @@ void Main::handleTimer()
 	   		pointers.erase(pointers.begin()+i);
 	   		if(!protagonist->getLife())
 	   		{
-	   			timer->stop(); inPlay=false;
-	   			score->setText("GAME"); lives->setText("OVER");
+	   			timer->stop(); gameover=true;
+	   			lives->setText(" GAME OVER");
 	   			return;
 	   		}
 	   	}
 	   	else if(!pointers[i]->isBad)//good items
 	   	{
-	   		if(pointers[i]->isBonus==true)
+	   		if(pointers[i]->which==2)
 	   		{
 	   			if(protagonist->getLife()==5)
 	   			{
-	   				intscore+=50; setScore();
+	   				intscore+=200; setScore(); cout<<"score up"<<endl;
 	   			}
 	   			else
 	   			{
-	   				protagonist->lifeUp(); setLife();
+	   				protagonist->lifeUp();setLife(); cout<<"life"<<endl;
 	   			}
 	   			delete pointers[i];
 	   			pointers.erase(pointers.begin()+i);
 	   		}
-	   		else if(pointers[i]->isBonus==false)
+	   		else if(pointers[i]->which==1)
 	   		{
-	   			timer->stop(); clear(); timer->start();
+	   			timer->stop(); clear(); timer->start(); cout<<"clear"<<endl;
 	   		}
 	   	}
 	   }

@@ -16,6 +16,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
+#include <QLineEdit>
+#include <QFormLayout>
 #include "grid.h"
 #include "thing.h"
 #include "redekopp.h"
@@ -71,6 +73,12 @@ class Main : public QMainWindow {
     QString slives;
     /**keeps track of lives*/
     QLabel *lives;
+    /**keeps track of name*/
+    QLabel *name;
+    /**used to get input name*/
+    QLineEdit *nameIn;
+    /**layout used to get name*/
+    QFormLayout *nameLay;
     /**Timer used to run animations and game*/
     QTimer *timer;
     /**Background of scene*/
@@ -79,12 +87,18 @@ class Main : public QMainWindow {
     bool inPlay;
     /**checks to see if the game is paused*/
     bool paused;
+    /**checks to see if game is over*/
+    bool gameover;
     /**Array of QGraphicsRectItem * to form grid*/
     Grid** board;
     /**Counter used throughout main*/
     unsigned int count;
     /**Image of protagonist*/
     QPixmap *redekopp;
+    /**Instructions page pixmap*/
+    QPixmap *instructions;
+    /**Instructions page pixmapitem*/
+    QGraphicsPixmapItem *instructionpage;
     /**Object of protagonist*/
     Redekopp *protagonist;
     /**Vector of Pointer things*/

@@ -4,7 +4,8 @@ Bonus::Bonus( )
 {
   pixMap = new QPixmap("./Images/redekopp.png");
   setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
-  deleteMe=false; isBad=false; isBonus=true;
+  deleteMe=false; isBad=false;
+  which = 2;
   srand(time(NULL));
   int pos = rand()%8+2;
   side = rand()%4+1;

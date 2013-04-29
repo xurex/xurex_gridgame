@@ -4,7 +4,8 @@ Ladebug::Ladebug( )
 {
   pixMap = new QPixmap("./Images/ladebug.png");
   setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
-  deleteMe=false; isBad=false; isBonus=false;
+  deleteMe=false; isBad=false;
+  which = 1;
   srand(time(NULL));
   int pos = rand()%7+3;
   side = rand()%4+1;
