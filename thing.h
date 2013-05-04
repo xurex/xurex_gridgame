@@ -22,12 +22,9 @@ public:
     Checks to see if needs to be deleted (off of grid)*/
     bool deleteMe;
     /**
-    Checks to see if the thing is bad for the player*/
-    bool isBad;
-    /**
-    Used for good items
-    Set to 1 for laDebug and 2 for bonus*/
-    int which;
+    Checks to see if the thing is bad for the player
+    Also tells program which good object collides (1: bonus, 2:bug, etc.)*/
+    int isGood;
 protected:  //Every thing has a origin and a velocity – maybe 0
     /**
     X coordinate in scene*/

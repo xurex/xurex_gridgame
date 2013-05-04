@@ -2,9 +2,9 @@
 
 Tree::Tree( ) 
 {
-  pixMap = new QPixmap("./Images/rainbow-satan-tree.png");
+  pixMap = new QPixmap("./Images/tree.png");
   setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
-  deleteMe=false; isBad=true;
+  deleteMe=false; isGood=0;
   srand(time(NULL));
   int posx = rand()%8+2; int posy = rand()%7+3;
   x = posx*50;

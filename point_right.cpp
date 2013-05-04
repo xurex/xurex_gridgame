@@ -4,7 +4,7 @@ PointRight::PointRight( )
 {
   pixMap = new QPixmap("./Images/pointer_left.png");
   setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
-  deleteMe=false; isBad=true;
+  deleteMe=false; isGood=0;
   srand(time(NULL));
   int pos = rand()%8+2;
   x = 500;

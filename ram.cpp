@@ -4,7 +4,7 @@ Ram::Ram( )
 {
   pixMap = new QPixmap("./Images/ram.png");
   setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
-  deleteMe=false;
+  deleteMe=false; //don't need to set isGood because no collisions
   x = 500;
   y = 50;
   setPos( x, y ); //how you set the position

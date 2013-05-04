@@ -33,16 +33,6 @@ Main::Main(QApplication *mainapp)  {
     lives->setAlignment( Qt::AlignCenter );
     setLife();
     
-    //Name
-    name = new QLabel(this);
-    name->setFrameStyle( QFrame::WinPanel | QFrame::Sunken );
-    name->setAlignment( Qt::AlignCenter );
-    name->setText("Average Joe");
-    
-    nameIn = new QLineEdit(this);
-    nameLay = new QFormLayout;
-    nameLay->addRow("Enter name: ", nameIn);
-    
     //Timer
     speed = 101;
     timer = new QTimer(this);
@@ -60,6 +50,17 @@ Main::Main(QApplication *mainapp)  {
     instructionpage = new QGraphicsPixmapItem();
     instructionpage->setPixmap(*instructions);
     view->scene->addItem(instructionpage);
+    
+    //Name
+    name = new QLabel(this);
+    name->setFrameStyle( QFrame::WinPanel | QFrame::Sunken );
+    name->setAlignment( Qt::AlignCenter );
+    name->setText("     Please Enter Name");
+    
+    nameIn = new QLineEdit;
+    nameIn->setText("Please Enter Name");
+    view->scene->addWidget(nameIn);
+    nameIn->move(120,0);
     
     //Connects
     connect(start, SIGNAL(clicked()), this, SLOT(startGame()));
@@ -82,7 +83,7 @@ Main::Main(QApplication *mainapp)  {
     
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(display);
-    layout->addLayout(nameLay);
+    //layout->addWidget(nameIn);
     layout->addWidget(view);
     layout->addLayout(startquit);
     
@@ -102,6 +103,7 @@ void Main::startGame()
 	{
 		gameover=false;
 		paused = false;
+		protagonist->resBlink();
 		QString thename;
 	  	thename=nameIn->text();
 	  	if(thename.size())
@@ -131,13 +133,13 @@ void Main::startGame()
 		setFocus();
 		return;
 	}
-	  inPlay = true; view->scene->removeItem(instructionpage);
-	  QString thename;
-	  thename=nameIn->text();
-	  if(thename.size())
-	  {
-	  	name->setText(thename);
-	  }
+	  inPlay = true; 
+	  view->scene->removeItem(instructionpage);
+	  if(nameIn->isModified())
+	  	name->setText(nameIn->text());
+	  else
+		name->setText("Anonymous");
+	  nameIn->close();
 	  board = new Grid*[SIZE];
 	  double wh = 50;
 	  double x, y; x=y=100;
@@ -182,6 +184,7 @@ void Main::keyPressEvent( QKeyEvent *e ) {
 		case Qt::Key_S://Qt::Key_Down:
 			if(!paused) protagonist->move_down();	break;
 		case Qt::Key_P:
+			protagonist->show();
 			if(!paused)
 			{
 				timer->stop();
@@ -228,7 +231,7 @@ void Main::handleTimer()
 		}
 	}
 	//BONUS AND LADEBUG CODE
-	if(count%75==0)
+	if(count%32==0)
 	{
 		Bonus *bonus;
 		bonus = new Bonus();
@@ -309,11 +312,28 @@ void Main::handleTimer()
 	{
 	   if(protagonist->collidesWithItem(pointers[i], Qt::IntersectsItemShape))
 	   {
-	   	if(pointers[i]->isBad)
+	   	if(pointers[i]->isGood)
 	   	{
-	   		protagonist->lifeDown(); setLife();
-	   		delete pointers[i];
-	   		pointers.erase(pointers.begin()+i);
+	   		if(pointers[i]->isGood==1) //bonus coin
+	   		{
+	   			intscore+=100; setScore(); cout<<"score up"<<endl;
+	   			delete pointers[i];
+	   			pointers.erase(pointers.begin()+i);
+	   		}
+	   		else if(pointers[i]->isGood==2) //ladebug
+	   		{
+	   			timer->stop(); clear(); timer->start(); cout<<"clear"<<endl;
+	   		}
+	   	}
+	   	else
+	   	{
+	   		if(!protagonist->getBlink()) //this allows for temp invincibility
+	   		{	
+	   			protagonist->setBlink();
+	   			protagonist->lifeDown(); setLife();
+	   			delete pointers[i];
+	   			pointers.erase(pointers.begin()+i);	
+	   		}
 	   		if(!protagonist->getLife())
 	   		{
 	   			timer->stop(); gameover=true;
@@ -321,27 +341,17 @@ void Main::handleTimer()
 	   			return;
 	   		}
 	   	}
-	   	else if(!pointers[i]->isBad)//good items
-	   	{
-	   		if(pointers[i]->which==2)
-	   		{
-	   			//if(protagonist->getLife()==5)
-	   			intscore+=200; setScore(); cout<<"score up"<<endl;
-	   			/*else
-	   			{
-	   				protagonist->lifeUp();setLife(); cout<<"life"<<endl;
-	   			}*/
-	   			delete pointers[i];
-	   			pointers.erase(pointers.begin()+i);
-	   		}
-	   		else if(pointers[i]->which==1)
-	   		{
-	   			timer->stop(); clear(); timer->start(); cout<<"clear"<<endl;
-	   		}
-	   	}
 	   }
 	}
 	count++; intscore++; setScore();
+	if(protagonist->getBlink()) //blinks the protagonist
+	{
+		if(!(protagonist->getBlink()%3))
+			protagonist->hide();
+		else
+			protagonist->show();
+		protagonist->decBlink();
+	}
 	//SPEEDS GAME UP
 	if(count%1000==0)
 	{

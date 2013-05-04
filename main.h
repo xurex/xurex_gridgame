@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsPixmapItem>
+#include <QGraphicsProxyWidget>
 #include <QTimer>
 #include <QTimeLine>
 #include <QPushButton>
@@ -106,8 +107,6 @@ class Main : public QMainWindow {
     QLabel *name;
     /**Used to get input name*/
     QLineEdit *nameIn;
-    /**Layout used to get name*/
-    QFormLayout *nameLay;
     /**Timer used to run animations and game*/
     QTimer *timer;
     /**Checks to see if the game is started*/

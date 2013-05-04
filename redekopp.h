@@ -50,11 +50,26 @@ class Redekopp: public Thing {
     Used to locate Redekopp object
     @return y*/
     int getY();
-    
+    /**
+    Used to set blink to five*/
+    void setBlink() {blink=30;}
+    /**
+    Used to decrement blink*/
+    void decBlink() {blink--;}
+    /**
+    Used to get blink, checks to see if invincible
+    @return blink*/
+    int getBlink() {return blink;}
+    /**
+    Resets blink to zero for restart game*/
+    void resBlink() {blink=0;}
  private:
     /**
     Tracks the number of lives left*/
-    int life;    
+    int life;        
+    /**
+    Used to create temporary invincibility after collision*/
+    int blink;
 };
 
 #endif //REDEKOPP_H
