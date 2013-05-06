@@ -14,6 +14,12 @@ class PointDown: public Thing {
   public:
     /**Constructor*/
     PointDown ();
+    /**
+    Constructor
+    @param nx Starting x coordinate of Thing
+    @param image The location of image to be loaded
+    */
+    PointDown (int, QString);
     /**Destructor*/
     ~PointDown() { delete pixMap; }
     /**Moves the Point object down*/

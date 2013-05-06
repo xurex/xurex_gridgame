@@ -12,6 +12,16 @@ PointDown::PointDown( )
   setPos( x, y ); //how you set the position
 }
 
+PointDown::PointDown(int nx, QString image)
+{
+  pixMap = new QPixmap(image);
+  setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
+  deleteMe=false; isGood=0;
+  x = nx;
+  y = 50;
+  setPos( x, y ); //how you set the position
+}
+
 void PointDown::move()
 {
     	y += 10;

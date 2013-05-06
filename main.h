@@ -31,7 +31,6 @@
 #include "bonus.h"
 #include "tree.h"
 #include "ram.h"
-#include "heap.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500

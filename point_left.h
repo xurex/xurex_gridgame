@@ -13,6 +13,12 @@ class PointLeft: public Thing {
   public:
     /**Constructor*/
     PointLeft ();
+    /**
+    Constructor
+    @param ny The starting y coordinate of point object
+    @param image The location of the image to be loaded
+    */
+    PointLeft (int, QString);
     /**Destructor*/
     ~PointLeft() { delete pixMap; }
     /**Moves Point object left*/

@@ -2,6 +2,7 @@
 #define THING_H
 #include <QGraphicsPixmapItem>
 #include <iostream>
+#include <QString>
 #include <vector>
 using namespace std;
 

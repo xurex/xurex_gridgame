@@ -268,8 +268,8 @@ void Main::handleTimer()
 		{
 			if(ram->getX()<=400&&ram->getX()>=50)
 			{
-			   Heap *heap;
-			   heap = new Heap(ram->getX()+50);
+			   PointDown *heap; QString image("./Images/heap.png");
+			   heap = new PointDown(ram->getX()+50, image);
 			   pointers.push_back(heap);
 			   view->scene->addItem(pointers[pointers.size()-1]);
 			}
@@ -325,7 +325,7 @@ void Main::handleTimer()
 	   			timer->stop(); clear(); timer->start(); cout<<"clear"<<endl;
 	   		}
 	   	}
-	   	else
+	   	else //bad collisions
 	   	{
 	   		if(!protagonist->getBlink()) //this allows for temp invincibility
 	   		{	

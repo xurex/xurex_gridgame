@@ -12,6 +12,16 @@ PointLeft::PointLeft( )
   setPos( x, y ); //how you set the position
 }
 
+PointLeft::PointLeft(int ny, QString image) 
+{
+  pixMap = new QPixmap(image);
+  setPixmap( *pixMap );  //First Qt method that doesn’t take a pointer :->
+  deleteMe=false; isGood=0;
+  x = 50;
+  y = ny;
+  setPos( x, y ); //how you set the position
+}
+
 void PointLeft::move()
 {
     	x += 10;
