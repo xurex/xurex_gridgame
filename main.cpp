@@ -118,8 +118,12 @@ void Main::startGame()
 		protagonist->lifeReset();
 		count = 1; intscore = 0;  speed=101;
 		timer->setInterval(speed);
+		//Regenerates certain objects
 		delete dictionary;
 		dictionary = new Dictionary();
+		delete coffee;
+		coffee = new Coffee();
+		view->scene->addItem(coffee);
 		view->scene->addItem(dictionary);
 		if(runningRam)
 		{
@@ -159,9 +163,11 @@ void Main::startGame()
 	  	x=100;
 	  	y+=wh;
 	  }
-	  //DELETE THIS LATER
+	  //Creates certain start characters
+	  coffee = new Coffee();
 	  dictionary = new Dictionary();
-	view->scene->addItem(dictionary);
+	  view->scene->addItem(coffee);
+	  view->scene->addItem(dictionary);
 	  view->scene->addItem(protagonist);
 	  //PRECLUDES SCENE SHIFT
 	  makeUp(); makeDown(); makeLeft(); makeRight();
@@ -318,6 +324,23 @@ void Main::handleTimer()
 		rand = new Tree();
 		pointers.push_back(rand);
 		view->scene->addItem(pointers[pointers.size()-1]);
+	}
+	//COFFEE MOVE AND DELETE AND COLLISION SHIT
+	coffee->move(protagonist->getX(), protagonist->getY());
+	if(!protagonist->getBlink())
+	{
+	  if(protagonist->collidesWithItem(coffee))
+	  {
+	  	protagonist->setBlink();
+		delete coffee;
+		coffee = new Coffee();
+		view->scene->addItem(coffee);
+		if(speed>10)
+		{
+		speed -= 10; cout<<"SPEED IS NOW: "<<speed<<endl;
+		timer->setInterval(speed);
+		}
+	  }
 	}
 	//MOVE AND DELETE CODE FOR VECTOR
 	for(unsigned int i=0; i<pointers.size(); i++)

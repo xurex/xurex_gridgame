@@ -33,6 +33,7 @@
 #include "tree.h"
 #include "ram.h"
 #include "dictionary.h"
+#include "coffee.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500
@@ -145,6 +146,8 @@ class Main : public QMainWindow {
     QWidget *window;
     /**Pointer to the single dictionary that is used*/
     Dictionary *dictionary;
+    /**Pointer to the single coffee that is used*/
+    Coffee *coffee;
     
   protected:
   	/**
