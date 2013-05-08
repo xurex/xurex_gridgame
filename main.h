@@ -19,6 +19,7 @@
 #include <vector>
 #include <QLineEdit>
 #include <QFormLayout>
+#include <fstream>
 #include "grid.h"
 #include "thing.h"
 #include "redekopp.h"
@@ -83,6 +84,9 @@ class Main : public QMainWindow {
     Displays the current lives to the QLabel life
     */
     void setLife();
+    /**
+    Updates the highscore list by reading in the current list form a txt, placing the values in a local binary tree and modifying accordingly based on the current user score*/
+    void highScore();
     
   private:
 

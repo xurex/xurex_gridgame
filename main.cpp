@@ -338,6 +338,7 @@ void Main::handleTimer()
 	   		{
 	   			timer->stop(); gameover=true;
 	   			lives->setText(" GAME OVER");
+	   			highScore();
 	   			return;
 	   		}
 	   	}
@@ -416,6 +417,90 @@ void Main::setLife()
 {
 	slives = "Lives: "; slives.append(QString::number(protagonist->getLife()));
     	lives->setText(slives);
+}
+
+void Main::highScore()
+{
+	string name_;
+	int score_;
+	int iterate = 0; //used to sync it because i'm too lazy to make struct pair
+	vector<string> names;
+	vector<int> scores;
+	
+	//LOADS CURRENT HIGH SCORES
+	ifstream fin("./highscore.txt");
+	if(fin.fail())
+	{
+		cout<<"fin failed\n";
+		return;
+	}
+	fin>>name_; fin>>score_;
+	while(!fin.eof())
+	{
+		names.push_back(name_);
+		scores.push_back(score_);
+		fin>>name_; fin>>score_;
+	}
+	fin.close();
+	//FOUT NEW SCORE LIST
+	ofstream fout("./highscore.txt");
+	if(scores.empty())
+	{
+		fout<<((name->text()).toStdString())<<"\t"<<intscore<<endl;
+		cout<<"you got a high score!\n";
+	}
+	else if(scores.size()<20)
+	{
+		std::vector<int>::iterator it;
+		it = scores.begin();
+		std::vector<string>::iterator itt;
+		itt = names.begin();
+		name_ = ((name->text()).toStdString());
+		while(intscore<=*it)
+		{
+			it++; iterate++;
+		}
+		while(iterate)
+		{
+			itt++; iterate--;
+		}
+		scores.insert(it, intscore);
+		names.insert(itt, name_);
+		for(unsigned int i=0; i<scores.size(); i++)
+		{
+			fout<<names[i]<<"\t"<<scores[i]<<endl;
+		}
+		cout<<"you got a high score!\n";
+	}
+	else if(scores.size()==20)
+	{
+		if(intscore>scores[19])
+		{
+		   std::vector<int>::iterator it;
+		   it=scores.begin();
+		   std::vector<string>::iterator itt;
+		   itt=names.begin();
+		   name_ = ((name->text()).toStdString());
+		   while(intscore<=*it)
+		   {
+			it++; iterate++;
+		   }
+		   while(iterate)
+		   {
+			itt++; iterate--;
+		   }
+		   scores.insert(it, intscore);
+		   names.insert(itt, name_);
+		   scores.pop_back(); //scores.erase(scores.begin()+10);
+		   names.pop_back(); //names.erase(names.begin()+10);
+		   for(unsigned int i=0; i<scores.size(); i++)
+		   {
+		   	fout<<names[i]<<"\t"<<scores[i]<<endl;
+		   }
+		   cout<<"you got a high score!\n";
+		}
+	}
+	fout.close();
 }
 
 /**Destructor*/
