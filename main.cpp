@@ -231,7 +231,7 @@ void Main::handleTimer()
 		}
 	}
 	//BONUS AND LADEBUG CODE
-	if(count%32==0)
+	if(count%33==0)
 	{
 		Bonus *bonus;
 		bonus = new Bonus();
@@ -353,14 +353,24 @@ void Main::handleTimer()
 			protagonist->show();
 		protagonist->decBlink();
 	}
-	//SPEEDS GAME UP
+	//SPEEDS GAME UP AND CHANGES LEVEL
 	if(count%1000==0)
 	{
-		if(speed>25)
+		if(speed>20)
 		{
-		speed -= 25; cout<<"SPEED IS NOW: "<<speed<<endl;
+		speed -= 20; cout<<"SPEED IS NOW: "<<speed<<endl;
 		timer->setInterval(speed);
 		}
+		clear(); clear();
+		intscore+=1000; setScore(); cout<<"level up"<<endl;
+		if(count>3999)
+			view->scene->setBackgroundBrush(Qt::black);
+		else if(count>2999)
+			view->scene->setBackgroundBrush(Qt::darkGray);
+		else if(count>1999)
+			view->scene->setBackgroundBrush(Qt::gray);
+		else if (count>999)
+			view->scene->setBackgroundBrush(Qt::lightGray);
 	}
 }
 
