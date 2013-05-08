@@ -18,7 +18,15 @@ class Dictionary: public Thing {
     Moves the Dictionary object up or down
     @param loc The y location of protagonist
     */
-    void move(int);    
+    void move(int);
+    /**
+    Necessary move function to satisfy Thing
+    */
+    void move() { }
+    /**
+    Used to locate Dictionary object and to create Buckets
+    @return y*/
+    int getY() {return y;}    
 };
 
 #endif //DICTIONARY_H

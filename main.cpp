@@ -118,6 +118,9 @@ void Main::startGame()
 		protagonist->lifeReset();
 		count = 1; intscore = 0;  speed=101;
 		timer->setInterval(speed);
+		delete dictionary;
+		dictionary = new Dictionary();
+		view->scene->addItem(dictionary);
 		if(runningRam)
 		{
 			delete ram; runningRam=0;
@@ -156,6 +159,9 @@ void Main::startGame()
 	  	x=100;
 	  	y+=wh;
 	  }
+	  //DELETE THIS LATER
+	  dictionary = new Dictionary();
+	view->scene->addItem(dictionary);
 	  view->scene->addItem(protagonist);
 	  //PRECLUDES SCENE SHIFT
 	  makeUp(); makeDown(); makeLeft(); makeRight();
@@ -230,6 +236,22 @@ void Main::handleTimer()
 		     makeDown();
 		}
 	}
+	//DICTIONARY CODE
+	
+		if(count%100>80)
+		{
+			if((count%100)%5==0)
+			{
+			   PointLeft *left;
+			   left = new PointLeft(dictionary->getY(),"./Images/bucket.png");
+			   pointers.push_back(left);
+			   view->scene->addItem(pointers[pointers.size()-1]);
+			}
+		}
+		else
+		{
+			dictionary->move(protagonist->getY());
+		}
 	//BONUS AND LADEBUG CODE
 	if(count%33==0)
 	{
@@ -338,7 +360,9 @@ void Main::handleTimer()
 	   		{
 	   			timer->stop(); gameover=true;
 	   			lives->setText(" GAME OVER");
+	   			cout<<"GAME OVER"<<endl;
 	   			highScore();
+	   			cout<<"high score list updated"<<endl;
 	   			return;
 	   		}
 	   	}
@@ -433,7 +457,7 @@ void Main::highScore()
 {
 	string name_;
 	int score_;
-	int iterate = 0; //used to sync it because i'm too lazy to make struct pair
+	unsigned int iterate = 0; //used to sync it because i'm too lazy to make struct pair
 	vector<string> names;
 	vector<int> scores;
 	
@@ -444,14 +468,15 @@ void Main::highScore()
 		cout<<"fin failed\n";
 		return;
 	}
-	fin>>name_; fin>>score_;
+	fin>>name_; 
 	while(!fin.eof())
 	{
+		fin>>score_;
 		names.push_back(name_);
 		scores.push_back(score_);
-		fin>>name_; fin>>score_;
+		fin>>name_;
 	}
-	fin.close();
+	fin.close(); cout<<"done with fin"<<endl;
 	//FOUT NEW SCORE LIST
 	ofstream fout("./highscore.txt");
 	if(scores.empty())
@@ -459,14 +484,15 @@ void Main::highScore()
 		fout<<((name->text()).toStdString())<<"\t"<<intscore<<endl;
 		cout<<"you got a high score!\n";
 	}
-	else if(scores.size()<20)
+	else if(scores.size()<10)
 	{
+		cout<<"less than 10 high scores"<<endl;
 		std::vector<int>::iterator it;
 		it = scores.begin();
 		std::vector<string>::iterator itt;
 		itt = names.begin();
 		name_ = ((name->text()).toStdString());
-		while(intscore<=*it)
+		while(intscore<=*it&&iterate<scores.size())
 		{
 			it++; iterate++;
 		}
@@ -482,16 +508,16 @@ void Main::highScore()
 		}
 		cout<<"you got a high score!\n";
 	}
-	else if(scores.size()==20)
+	else if(scores.size()==10)
 	{
-		if(intscore>scores[19])
+		if(intscore>scores[9])
 		{
 		   std::vector<int>::iterator it;
 		   it=scores.begin();
 		   std::vector<string>::iterator itt;
 		   itt=names.begin();
 		   name_ = ((name->text()).toStdString());
-		   while(intscore<=*it)
+		   while(intscore<=*it&&iterate<scores.size())
 		   {
 			it++; iterate++;
 		   }

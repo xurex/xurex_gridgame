@@ -32,6 +32,7 @@
 #include "bonus.h"
 #include "tree.h"
 #include "ram.h"
+#include "dictionary.h"
 
 #define WINDOW_MAX_X 500
 #define WINDOW_MAX_Y 500
@@ -142,6 +143,8 @@ class Main : public QMainWindow {
     int intscore;
     /**Widget used to setCentralWidget*/
     QWidget *window;
+    /**Pointer to the single dictionary that is used*/
+    Dictionary *dictionary;
     
   protected:
   	/**
