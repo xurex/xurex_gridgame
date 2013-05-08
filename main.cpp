@@ -211,7 +211,7 @@ void Main::keyPressEvent( QKeyEvent *e ) {
 		case Qt::Key_C:
 			if(speed>20)
 			{
-				speed-=10; cout<<"SPEED IS NOW: "<<speed<<endl;
+				speed-=10;
 				timer->setInterval(speed);
 			}
 			break;
@@ -337,7 +337,7 @@ void Main::handleTimer()
 		view->scene->addItem(coffee);
 		if(speed>10)
 		{
-		speed -= 10; cout<<"SPEED IS NOW: "<<speed<<endl;
+		speed -= 10;
 		timer->setInterval(speed);
 		}
 	  }
@@ -361,13 +361,13 @@ void Main::handleTimer()
 	   	{
 	   		if(pointers[i]->isGood==1) //bonus coin
 	   		{
-	   			intscore+=100; setScore(); cout<<"score up"<<endl;
+	   			intscore+=100; setScore();
 	   			delete pointers[i];
 	   			pointers.erase(pointers.begin()+i);
 	   		}
 	   		else if(pointers[i]->isGood==2) //ladebug
 	   		{
-	   			timer->stop(); clear(); timer->start(); cout<<"clear"<<endl;
+	   			timer->stop(); clear(); timer->start();
 	   		}
 	   	}
 	   	else //bad collisions
@@ -383,9 +383,7 @@ void Main::handleTimer()
 	   		{
 	   			timer->stop(); gameover=true;
 	   			lives->setText(" GAME OVER");
-	   			cout<<"GAME OVER"<<endl;
 	   			highScore();
-	   			cout<<"high score list updated"<<endl;
 	   			return;
 	   		}
 	   	}
@@ -405,11 +403,11 @@ void Main::handleTimer()
 	{
 		if(speed>20)
 		{
-		speed -= 20; cout<<"SPEED IS NOW: "<<speed<<endl;
+		speed -= 20;
 		timer->setInterval(speed);
 		}
 		clear(); clear();
-		intscore+=1000; setScore(); cout<<"level up"<<endl;
+		intscore+=1000; setScore();
 		if(count>3999)
 			view->scene->setBackgroundBrush(Qt::black);
 		else if(count>2999)
@@ -487,10 +485,7 @@ void Main::highScore()
 	//LOADS CURRENT HIGH SCORES
 	ifstream fin("./highscore.txt");
 	if(fin.fail())
-	{
-		cout<<"fin failed\n";
 		return;
-	}
 	fin>>name_; 
 	while(!fin.eof())
 	{
@@ -499,17 +494,15 @@ void Main::highScore()
 		scores.push_back(score_);
 		fin>>name_;
 	}
-	fin.close(); cout<<"done with fin"<<endl;
+	fin.close();
 	//FOUT NEW SCORE LIST
 	ofstream fout("./highscore.txt");
 	if(scores.empty())
 	{
 		fout<<((name->text()).toStdString())<<"\t"<<intscore<<endl;
-		cout<<"you got a high score!\n";
 	}
 	else if(scores.size()<10)
 	{
-		cout<<"less than 10 high scores"<<endl;
 		std::vector<int>::iterator it;
 		it = scores.begin();
 		std::vector<string>::iterator itt;
@@ -529,7 +522,6 @@ void Main::highScore()
 		{
 			fout<<names[i]<<"\t"<<scores[i]<<endl;
 		}
-		cout<<"you got a high score!\n";
 	}
 	else if(scores.size()==10)
 	{
@@ -556,7 +548,6 @@ void Main::highScore()
 		   {
 		   	fout<<names[i]<<"\t"<<scores[i]<<endl;
 		   }
-		   cout<<"you got a high score!\n";
 		}
 	}
 	fout.close();
@@ -565,7 +556,6 @@ void Main::highScore()
 /**Destructor*/
 Main::~Main()
 {
-    cout<<"In destructor!"<<endl;
     //delete view; 
     //delete start; 
     //delete quit;  
