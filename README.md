@@ -9,6 +9,8 @@
   + Game Description: Avoid objects within a grid to get a good grade
   + [Game Design Doc](GameDesignDoc.md)
 
+### License
+[LICENSE](./LICENSE)
 
 ### Compile & Run Instructions
 The grader should use the following procedure to compile and run the code:
@@ -20,6 +22,4 @@ echo "doxygen -g doxy, doxygen doxy"
 #Command to run
 echo "./game_rexxu"
 
-### License
-[LICENSE](./LICENSE)
 ```
