@@ -19,4 +19,6 @@ echo "qmake -project, qmake, make"
 echo "doxygen -g doxy, doxygen doxy"
 #Command to run
 echo "./game_rexxu"
+
+[LICENSE](./LICENSE)
 ```
