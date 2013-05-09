@@ -20,5 +20,6 @@ echo "doxygen -g doxy, doxygen doxy"
 #Command to run
 echo "./game_rexxu"
 
+### License
 [LICENSE](./LICENSE)
 ```
